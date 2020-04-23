@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import Home from './views/Home';
+import Login from './views/Login';
+import Logout from './views/Logout';
+import { MediaProvider } from './contexts/MediaContext';
+import { Container } from '@material-ui/core';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // eslint-disable-next-line no-undef
+    <Router basename={process.env.PUBLIC_URL}>
+      <MediaProvider>
+        <Container>
+          <Switch>
+            <Route path="/" exact component={Login} />
+            <Route path="/home" component={Home} />
+            <Route path="/logout" component={Logout} />
+          </Switch>
+        </Container>
+      </MediaProvider>
+    </Router>
   );
-}
+};
 
 export default App;
