@@ -11,7 +11,7 @@ const useModifyForm = (callback) => {
     if (event) {
       event.preventDefault();
     }
-    callback('/myfiles');
+    callback();
   };
 
   const handleInputChange = (event) => {

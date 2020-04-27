@@ -11,7 +11,7 @@ const useUploadForm = (callback) => {
     if (event) {
       event.preventDefault();
     }
-    callback('/myfiles');
+    callback();
   };
   const handleInputChange = (event) => {
     event.persist();

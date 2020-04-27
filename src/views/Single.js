@@ -32,17 +32,18 @@ const Single = ({match}) => {
             gutterBottom>
             {file.user.username}
           </Typography>
-          <Paper>
-            {description &&
-              <Media file={file} description={description} />
-            }
-          </Paper>
           <Typography
             component="p"
             variant="caption"
             gutterBottom>
             {description.desc}
           </Typography>
+          <Paper>
+            {description &&
+              <Media file={file} description={description} />
+            }
+          </Paper>
+    
         </>
       }
     </>
