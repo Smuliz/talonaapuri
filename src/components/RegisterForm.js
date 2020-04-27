@@ -81,7 +81,6 @@ const RegisterForm = ({ history }) => {
                                 value={inputs.username}
                                 helperText={errorMessage.username}
                                 error={errorMessage.username ? true : false}
-                                onBlur={handleBlur}
                                 validators={[
                                     'required',
                                     'minStringLength:3',
