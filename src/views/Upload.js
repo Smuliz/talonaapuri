@@ -109,7 +109,10 @@ const Upload = ({history}) => {
               </Grid>
               <Grid container item>
                 <TextValidator
+                  id="standard-multiline-static"
                   fullWidth
+                  multiline
+                  rows={4}
                   label="Description"
                   name="description"
                   value={inputs.description}
@@ -156,7 +159,7 @@ const Upload = ({history}) => {
               }
               src={inputs.dataUrl}
               alt="preview"/>
-          }
+          
           </Grid>
           }
         </Grid>

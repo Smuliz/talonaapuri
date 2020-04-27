@@ -11,7 +11,7 @@ const useUploadForm = (callback) => {
     if (event) {
       event.preventDefault();
     }
-    callback();
+    callback('/myfiles');
   };
   const handleInputChange = (event) => {
     event.persist();
@@ -34,21 +34,6 @@ const useUploadForm = (callback) => {
     });
   };
 
-  /*const handleSliderChange = (event, value) => {
-    if (event.target !== null &&
-      event.target.previousElementSibling !== null &&
-      event.target.previousElementSibling.name !== undefined) {
-      // console.log('nimi', event.target.previousElementSibling.name);
-      // console.log('arvo', value);
-      setInputs((inputs) => {
-        return {
-          ...inputs,
-          [event.target.previousElementSibling.name]: value,
-        };
-      });
-    }
-  };
-  */
   
 
   return {

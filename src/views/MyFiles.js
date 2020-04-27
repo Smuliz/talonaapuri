@@ -11,7 +11,7 @@ const MyFiles = () => {
             <Typography
                 component="h1"
                 variant="h2"
-                gutterBottom>My Files
+                gutterBottom>Vikailmoituket
             </Typography>
             <Typography
                 component="p"

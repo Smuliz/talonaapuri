@@ -9,6 +9,8 @@ import MyFiles from './views/MyFiles';
 import Home from './views/Home';
 import Login from './views/Login';
 import Logout from './views/Logout';
+import Modify from './views/Modify';
+import Single from './views/Single';
 
 const App = () => {
   return (
@@ -20,9 +22,11 @@ const App = () => {
             <Switch>
               <Route path="/" exact component={Login} />
               <Route path="/home" component={Home} />
+              <Route path="/single/:id" component={Single} />
               <Route path="/logout" component={Logout} />
               <Route path="/myfiles" component={MyFiles}/>
               <Route path="/upload" component={Upload} />
+              <Route path="/modify/:id" component={Modify} />
             </Switch>
           </main>
         </Container>

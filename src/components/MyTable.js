@@ -50,7 +50,12 @@ const MyTable = () => {
           <GridListTile key="Subheader" cols={3} style={{height: 'auto'}}>
             <ListSubheader component="div">All Media</ListSubheader>
           </GridListTile>
-          
+          {
+            newPicArray.map((file) =>
+              <GridListTile key={file.file_id}>
+                <MediaRow file={file} myfiles={true} />
+              </GridListTile>)
+          }
         </GridList>
       
     </div>

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import useSignUpForm from '../hooks/RegisterHooks';
 import { register, login, checkUserAvailable } from '../hooks/ApiHooks';
 import { withRouter } from 'react-router-dom';
@@ -10,32 +10,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 const RegisterForm = ({ history }) => {
     // eslint-disable-next-line no-unused-vars
     const [user, setUser] = useContext(MediaContext);
-    const alkuarvot = {
-        username: undefined,
-        // password: undefined,
-        // email: undefined,
-        // full_name: undefined,
-    };
-    const [errorMessage, setErrorMessage] = useState(alkuarvot);
 
-    const handleBlur = (evt) => {
-        evt.persist();
-        try {
-            const response = checkUserAvailable(evt.target.value);
-            console.log(response);
-            if (!response.available) {
-
-                setErrorMessage((errorMessage) => {
-                    return {
-                        ...errorMessage,
-                        username: response.username + ' is not available',
-                    };
-                });
-            }
-        } catch (e) {
-            console.log(e.message);
-        }
-    };
 
 
     const doRegister = async () => {
@@ -97,9 +72,6 @@ const RegisterForm = ({ history }) => {
                                 label="Username"
                                 onChange={handleInputChange}
                                 value={inputs.username}
-                                helperText={errorMessage.username}
-                                error={errorMessage.username ? true : false}
-                                onBlur={handleBlur}
                                 validators={[
                                     'required',
                                     'minStringLength:3',
