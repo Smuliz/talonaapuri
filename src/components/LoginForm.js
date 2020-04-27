@@ -14,7 +14,7 @@ const LoginForm = ({ history }) => {
             const userdata = await login(inputs);
             setUser(userdata.user);
             localStorage.setItem('token', userdata.token);
-            history.push('/home');
+            history.push('/profile');
         } catch (e) {
             console.log("login form",e.message);
         }
