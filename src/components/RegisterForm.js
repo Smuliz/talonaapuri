@@ -12,30 +12,12 @@ const RegisterForm = ({ history }) => {
     const [user, setUser] = useContext(MediaContext);
     const alkuarvot = {
         username: undefined,
-        // password: undefined,
-        // email: undefined,
-        // full_name: undefined,
+        password: undefined,
+        email: undefined,
+        full_name: undefined,
     };
     const [errorMessage, setErrorMessage] = useState(alkuarvot);
 
-    const handleBlur = (evt) => {
-        evt.persist();
-        try {
-            const response = checkUserAvailable(evt.target.value);
-            console.log(response);
-            if (!response.available) {
-
-                setErrorMessage((errorMessage) => {
-                    return {
-                        ...errorMessage,
-                        username: response.username + ' is not available',
-                    };
-                });
-            }
-        } catch (e) {
-            console.log(e.message);
-        }
-    };
 
 
     const doRegister = async () => {
