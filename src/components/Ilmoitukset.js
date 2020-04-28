@@ -33,7 +33,7 @@ const IlmoitusTable = () => {
     const matches = useMediaQuery('(min-width:697px)');
   
     const picArray = useAllMedia('ilmoitukset');
-    console.log(picArray);
+    console.log('Ilmoitustable', picArray);
 
 
 return (
