@@ -21,7 +21,7 @@ const ProfileForm = ({ history }) => {
             const token = localStorage.getItem('token');
             await updateProfile(inputs, token);
             const userdata = await checkToken(token);
-            console.log(userdata);
+            console.log('ProfileForm doProfile', userdata);
             setUser(userdata);
         } catch (e) {
             console.log("register form", e.message)

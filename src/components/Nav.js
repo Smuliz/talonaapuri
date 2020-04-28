@@ -118,7 +118,7 @@ const Nav = ({history}) => {
             <ListItem
               button
               component={RouterLink}
-              onClick={toggelDrawer(false)}
+              onClick={toggleDrawer(false)}
               to="/profile"
               >
                 <ListItemIcon>

@@ -4,7 +4,7 @@ import './App.css';
 import Home from './views/Home';
 import Login from './views/Login';
 import Logout from './views/Logout';
-import Profile from '.views/Profile';
+import Profile from './views/Profile';
 import { MediaProvider } from './contexts/MediaContext';
 import { Container } from '@material-ui/core';
 
@@ -13,13 +13,15 @@ const App = () => {
     // eslint-disable-next-line no-undef
     <Router basename={process.env.PUBLIC_URL}>
       <MediaProvider>
-        <Container>
+        <Container maxWidth="md">
+          <main>
           <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/home" component={Home} />
-            <Route path="/logout" component={Logout} />
             <Route path="/profile" component={Profile} />
+            <Route path="/logout" component={Logout} />
           </Switch>
+          </main>
         </Container>
       </MediaProvider>
     </Router>

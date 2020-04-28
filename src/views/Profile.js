@@ -15,6 +15,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import { getAvatarImage } from '../hooks/ApiHooks';
 import ProfileForm from '../components/ProfileForm';
+import Nav from '../components/Nav';
 
 
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
@@ -33,18 +34,14 @@ const Profile = () => {
 
   return (
     <>
+    <Nav />
       <Typography
         component="h1"
         variant="h2"
         gutterBottom>Profile</Typography>
       {user !== null &&
         <Card>
-          <CardMedia
-            component="img"
-            image={mediaUrl + avatar[0].filename}
-            alt="Avatar image"
-            title="Avatar image"
-          />
+
           <CardContent>
             <List>
               <ListItem>
