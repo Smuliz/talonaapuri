@@ -2,10 +2,10 @@ import {useState, useEffect} from 'react';
 
 const baseUrl = 'http://media.mw.metropolia.fi/wbma/';
 
-const useAllMedia = () => {
+const useAllMedia = (tag) => {
   const [data, setData] = useState([]);
   const fetchUrl = async () => {
-    const response = await fetch(baseUrl + 'tags/taloJaNaapuri');
+    const response = await fetch(baseUrl + 'tags/taloJaNaapuri' + tag);
     const json = await response.json();
     // haetaan yksittäiset kuvat, jotta saadan thumbnailit
     const items = await Promise.all(json.map(async (item) => {
@@ -154,7 +154,7 @@ const addTag = async (file_id, tag, token) => {
   }
 };
 
-const upload = async (inputs, token) => {
+const uploadVikailmoitus = async (inputs, token) => {
   const fd = new FormData();
   fd.append('title', inputs.title);
   fd.append('description', inputs.description);
@@ -172,7 +172,7 @@ const upload = async (inputs, token) => {
     const json = await response.json();
     if (!response.ok) throw new Error(json.message + ': ' + json.error);
     // lisää tägi mpjakk
-    const tagJson = addTag(json.file_id, 'taloJaNaapuri', token);
+    const tagJson = addTag(json.file_id, 'taloJaNaapurivikailmoitus', token);
     return {json, tagJson};
   } catch (e) {
     throw new Error(e.message);
@@ -241,7 +241,7 @@ export {
   checkToken,
   getAvatarImage,
   updateProfile,
-  upload,
+  uploadVikailmoitus,
   addTag,
   getUser,
   deleteFile,

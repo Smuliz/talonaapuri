@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import useUploadForm from '../hooks/UploadHooks';
-import {upload} from '../hooks/ApiHooks';
+import {uploadVikailmoitus} from '../hooks/ApiHooks';
 import {
   Button,
   Grid,
@@ -24,11 +24,11 @@ const Upload = ({history}) => {
         }),
         file: inputs.file,
       };
-      const result = await upload(uploadObject, localStorage.getItem('token'));
+      const result = await uploadVikailmoitus(uploadObject, localStorage.getItem('token'));
       console.log(result);
       setTimeout(() => {
         setLoading(false);
-        history.push('/home');
+        history.push('/myfiles');
       }, 2000);
     } catch (e) {
       console.log(e.message);

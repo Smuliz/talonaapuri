@@ -32,7 +32,7 @@ const MyTable = () => {
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:697px)');
 
-  const picArray = useAllMedia();
+  const picArray = useAllMedia('vikailmoitus');
   console.log(picArray);
   let newPicArray = [];
   if (picArray.length > 0 && user !== null) {
