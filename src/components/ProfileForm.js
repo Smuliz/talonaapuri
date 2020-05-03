@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import useProfileForm from '../hooks/ProfileHooks';
-import { updateProfile, checkUserAvailable, checkToken } from '../hooks/ApiHooks';
+import { updateProfile, checkUserAvailable, checkToken, uploadAvatar } from '../hooks/ApiHooks';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MediaContext } from '../contexts/MediaContext';
@@ -20,6 +20,8 @@ const ProfileForm = ({ history }) => {
             //await checkUserAvailable(inputs.username);
             const token = localStorage.getItem('token');
             await updateProfile(inputs, token);
+            // tää kohta tosi sekava??
+            await uploadAvatar(inputs, token, user.user_id);
             // toimiiko seuraava rivi? mistä saa file_id:n???
            // await addTag(json.file_id, 'avatar_' + user_id, token);
             const userdata = await checkToken(token);

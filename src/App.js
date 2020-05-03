@@ -5,6 +5,7 @@ import Home from './views/Home';
 import Login from './views/Login';
 import Logout from './views/Logout';
 import Profile from './views/Profile';
+import Single from './views/Single';
 import AdminIlmoitukset from './views/AdminIlmoitukset';
 import UploadIlmoitus from './views/UploadIlmoitus';
 import { MediaProvider } from './contexts/MediaContext';
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/home" component={Home} />
             <Route path="/profile" component={Profile} />
             <Route path="/logout" component={Logout} />
+            <Route path="/single/:id" component={Single} />
             <Route path="/admin" component={AdminIlmoitukset} />
             <Route path="/uploadilmoitus" component={UploadIlmoitus} />
           </Switch>

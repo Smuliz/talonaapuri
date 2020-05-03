@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {Typography, Button} from '@material-ui/core';
 import AdminTable from '../components/Admin';
 import {Link as RouterLink} from 'react-router-dom';
@@ -18,6 +18,7 @@ const AdminIlmoitukset = () => {
                 variant="p"
                 gutterBottom>Lorem impus knvnwinvqiwnopn nqwnjqen neqöjbjeb jqfjqbejbö bqöjbq bqnö jbjöqb be qöbjevbrkrenbinir.
             </Typography>
+            
             <Button
             color="inherit"
             component={RouterLink}
@@ -26,6 +27,7 @@ const AdminIlmoitukset = () => {
                 Tee taloyhtiön ilmoitus.
             </Button>
             <AdminTable />
+            }
         </>
     );
 };

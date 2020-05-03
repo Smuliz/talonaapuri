@@ -77,7 +77,7 @@ const UploadIlmoitus = ({ history }) => {
     console.log('inputs', inputs);
 
     // kaikenlaista kokeilua admin sivun kieltämiseen muilta käyttäjiltä. if lause ei toimi, user.username/user_id && ---> muoto ei myöskään toimi...
-    if (user.user_id === 574) {
+    // TOIMII SITTENKIN?? 
     return (
         <>
             
@@ -175,11 +175,6 @@ const UploadIlmoitus = ({ history }) => {
             }
         </>
     );
-} else {
-    return (
-        <Typography>asd</Typography>
-    )
-    };
 }; 
 
 UploadIlmoitus.propTypes = {

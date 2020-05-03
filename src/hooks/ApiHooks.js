@@ -1,4 +1,5 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
+import { MediaContext } from '../contexts/MediaContext';
 
 const baseUrl = 'http://media.mw.metropolia.fi/wbma/';
 
@@ -148,30 +149,27 @@ const uploadIlmoitus = async (inputs, token) => {
   }
 };
 
-// const uploadAvatar = async (inputs, token) => {
-//   const fd = new FormData();
-//   fd.append('title', inputs.title);
-//   fd.append('description', inputs.description);
-//   fd.append('file', inputs.file);
-
-//   const fetchOptions = {
-//     method: 'POST',
-//     body: fd,
-//     headers: {
-//       'x-access-token': token,
-//     },
-//   };
-//   try {
-//     const response = await fetch(baseUrl + 'media', fetchOptions);
-//     const json = await response.json();
-//     if (!response.ok) throw new Error(json.message + ': ' + json.error);
-//     // lisää tägi mpjakk
-//     const tagJson = addTag(json.file_id, 'avatar_' + user_id, token);
-//     return {json, tagJson};
-//   } catch (e) {
-//     throw new Error(e.message);
-//   }
-// };
+const uploadAvatar = async (inputs, token, usrid) => {
+  const fd = new FormData();
+  fd.append('file', inputs.file);
+  const fetchOptions = {
+    method: 'POST',
+    body: fd,
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    // lisää tägi mpjakk
+    const tagJson = addTag(json.file_id, 'avatar_' + usrid, token);
+    return {json, tagJson};
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
 
 // eslint-disable-next-line camelcase
 const addTag = async (file_id, tag, token) => {
@@ -301,4 +299,5 @@ export {
   upload,
   addTag,
   uploadIlmoitus,
+  uploadAvatar,
 };

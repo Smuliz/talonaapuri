@@ -26,12 +26,14 @@ const Single = ({match}) => {
             component="h1"
             variant="h2"
             gutterBottom>{file.title}</Typography>
+            {file.user.username !== 'tjnadmin' &&
           <Typography
             component="h5"
             variant="h5"
             gutterBottom>
             {file.user.username}
           </Typography>
+          }
           <Typography
             component="p"
             variant="caption"
