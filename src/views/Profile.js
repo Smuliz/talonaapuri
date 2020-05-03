@@ -41,6 +41,14 @@ const Profile = () => {
         gutterBottom>Profile</Typography>
       {user !== null &&
         <Card>
+          {avatar.length > 0 &&
+          <CardMedia
+            component="img"
+            image={mediaUrl + avatar[0].filename}
+            alt="Avatar image"
+            title="Avatar image"
+          />
+          }
 
           <CardContent>
             <List>

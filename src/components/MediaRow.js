@@ -20,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MediaRow = ({file, myfiles}) => {
-  const description = JSON.parse(file.description);
+
+const description = "hei";
   const classes = useStyles();
-  let thumb = 'https://via.placeholder.com/320x200.png?text=Audio';
+  let thumb = 'http://placekitten.com/200/300';
   if (file.thumbnails) {
     thumb = mediaUrl + file.thumbnails.w320;
   }

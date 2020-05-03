@@ -20,6 +20,8 @@ const ProfileForm = ({ history }) => {
             //await checkUserAvailable(inputs.username);
             const token = localStorage.getItem('token');
             await updateProfile(inputs, token);
+            // toimiiko seuraava rivi? mistä saa file_id:n???
+           // await addTag(json.file_id, 'avatar_' + user_id, token);
             const userdata = await checkToken(token);
             console.log('ProfileForm doProfile', userdata);
             setUser(userdata);
@@ -128,8 +130,7 @@ const ProfileForm = ({ history }) => {
                                     <TextValidator
                                         fullWidth
                                         type="file"
-                                        name="test"
-                                        validators={['allowedExtensions:image/png,image/jpeg,image/jpg']}
+                                        name="profileImage"
                                         errorMessages={['images only']}
                                     />
                                 </Grid>

@@ -9,7 +9,7 @@ const Home = () => {
       <Nav />
         <Typography
           component="h1"
-          vvariant="h2"
+          variant="h2"
           gutterBottom>Ilmoitukset
         </Typography>
         <IlmoitusTable />

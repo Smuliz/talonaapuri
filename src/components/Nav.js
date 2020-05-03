@@ -58,8 +58,9 @@ const Nav = ({history}) => {
 
     checkUser();
   }, [history, setUser]);
-  
 
+  
+console.log("USER",user);
   return (
     <>
       <AppBar color="primary">
@@ -126,6 +127,19 @@ const Nav = ({history}) => {
                 </ListItemIcon>
                 <ListItemText primary="Profiili" />
             </ListItem>
+            {user.user_id === 574 &&
+            <ListItem
+            button
+            component={RouterLink}
+            onClick={toggleDrawer(false)}
+            to="/admin"
+            >
+              <ListItemIcon>
+                <AccountBoxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Taloyhtiön ilmoitukset" />
+            </ListItem>
+            }
               </>
           }
         </List>
