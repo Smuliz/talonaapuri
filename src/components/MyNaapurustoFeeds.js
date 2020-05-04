@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import MediaRow from './MediaRow';
-import {useAllNaapurustoMedia} from '../hooks/ApiHooks';
+import {useAllMedia} from '../hooks/ApiHooks';
 import {
   GridList,
   GridListTile,
@@ -32,7 +32,7 @@ const MyNaapurustoFeeds = () => {
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:697px)');
 
-  const picArray = useAllNaapurustoMedia('Naapurustofeedi');
+  const picArray = useAllMedia('Naapurustofeedi');
   console.log(picArray);
   let newPicArray = [];
   if (picArray.length > 0 && user !== null) {

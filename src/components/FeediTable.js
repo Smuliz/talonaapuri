@@ -1,6 +1,6 @@
 import React from 'react';
 import MediaRow from './MediaRow';
-import {useAllNaapurustoMedia} from '../hooks/ApiHooks';
+import {useAllMedia} from '../hooks/ApiHooks';
 import {
   GridList,
   GridListTile,
@@ -32,7 +32,7 @@ const FeediTable = () => {
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:697px)');
 
-  const picArray = useAllNaapurustoMedia('NaapurustoFeedi');
+  const picArray = useAllMedia('NaapurustoFeedi');
   console.log(picArray);
 
   /*let newPicArray = [];
