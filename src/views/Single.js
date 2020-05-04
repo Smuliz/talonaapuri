@@ -1,10 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useSingleMedia} from '../hooks/ApiHooks';
-import {Typography, Paper} from '@material-ui/core';
+import {Typography, Paper, Button} from '@material-ui/core';
 import BackButton from '../components/BackButton';
 import Media from '../components/Media';
+import Comment from '../components/Comments';
+import CommentForm from '../components/CommentForm';
 import Nav from '../components/Nav';
+import { TextValidator} from 'react-material-ui-form-validator';
+
 
 
 const Single = ({match}) => {
@@ -45,6 +49,14 @@ const Single = ({match}) => {
               <Media file={file} description={description} />
             }
           </Paper>
+          
+          <>
+          <Comment id={file.file_id} />
+          <CommentForm id={file.file_id} />
+          
+          </>
+          
+          
     
         </>
       }

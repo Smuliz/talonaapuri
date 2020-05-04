@@ -331,6 +331,58 @@ const getAvatarImage = async (id) => {
   return await response.json();
 };
 
+const deleteComment = async (token, user_id) => {
+  const fetchOptions = {
+    method: 'DELETE',
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + '/comments/' + user_id, fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const postComment = async (inputs, file_id, token) => {
+  
+  console.log("TOKEn postComment", token, inputs, file_id);
+  const bodydata = {
+    "file_id":file_id.id,
+    "comment":inputs
+  }
+  console.log(bodydata);
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'x-access-token': token,
+    },
+    body: bodydata
+  };
+  try {
+    const response = await fetch(baseUrl + 'comments', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const getComments = async (id) => {
+  console.log('comment id', id.id);
+  const response = await fetch(baseUrl + 'comments/file/' + id.id);
+  console.log(response);
+  return await response.json();
+};
+
+
+
+
 
 export { 
   register,
@@ -350,4 +402,7 @@ export {
   uploadAvatar,
   uploadNaapurustoFeed,
   uploadVikailmoitus,
+  deleteComment,
+  postComment,
+  getComments,
 };
