@@ -7,6 +7,11 @@ import Logout from './views/Logout';
 import Profile from './views/Profile';
 import Single from './views/Single';
 import Modify from './views/Modify';
+import Upload from './views/Upload';
+import UploadNewFeed from './views/UploadNewFeed';
+import MyFiles from './views/MyFiles';
+import MyFeeds from './views/MyFeeds';
+import NaapurustoFeed from './views/NaapurustoFeed';
 import ModifyIlmoitus from './views/ModifyIlmoitus';
 import AdminIlmoitukset from './views/AdminIlmoitukset';
 import UploadIlmoitus from './views/UploadIlmoitus';
@@ -30,6 +35,11 @@ const App = () => {
             <Route path="/uploadilmoitus" component={UploadIlmoitus} />
             <Route path="/modify/:id" component={Modify} />
             <Route path="/modifyilmoitus/:id" component={ModifyIlmoitus} />
+            <Route path="/myfiles" component={MyFiles}/>
+            <Route path="/myfeeds" component={MyFeeds}/>
+            <Route path="/naapurustofeed" component={NaapurustoFeed}/>
+            <Route path="/upload" component={Upload} />
+            <Route path="/uploadnewfeed" component={UploadNewFeed}/>
           </Switch>
           </main>
         </Container>

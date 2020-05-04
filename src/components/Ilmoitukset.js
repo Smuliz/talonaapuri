@@ -49,7 +49,7 @@ return (
                 {
                     picArray.map((file) => 
                         <GridListTile key={file.file_id}>
-                        <MediaRow file={file} myfiles={false} />
+                        <MediaRow file={file} />
                         
                         </GridListTile>
                     )

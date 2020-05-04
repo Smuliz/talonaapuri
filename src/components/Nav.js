@@ -21,6 +21,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  palette:{
+    primary: red,
   },
   
 }));
@@ -116,6 +120,17 @@ console.log("USER",user);
                 </ListItemIcon>
                 <ListItemText primary="Vikailmoitus"/>
               </ListItem>
+              <ListItem
+            button
+            component={RouterLink}
+            onClick={toggleDrawer(false)}
+            to="/naapurustofeed"
+          >
+            <ListItemIcon>
+              <AccountBoxIcon/>
+            </ListItemIcon>
+            <ListItemText primary="NaapurustoFeed"/>
+          </ListItem>
             <ListItem
               button
               component={RouterLink}

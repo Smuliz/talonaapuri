@@ -21,10 +21,6 @@ const ProfileForm = ({ history }) => {
             const token = localStorage.getItem('token');
             await uploadAvatar(inputs, token, user.user_id);
             await updateProfile(inputs, token);
-            // tää kohta tosi sekava??
-            
-            // toimiiko seuraava rivi? mistä saa file_id:n???
-           // await addTag(json.file_id, 'avatar_' + user_id, token);
             const userdata = await checkToken(token);
             console.log('ProfileForm doProfile', userdata);
             setUser(userdata);

@@ -62,6 +62,55 @@ const getUser = async (id, token) => {
   }
 };
 
+const uploadVikailmoitus = async (inputs, token) => {
+  const fd = new FormData();
+  fd.append('title', inputs.title);
+  fd.append('description', inputs.description);
+  fd.append('file', inputs.file);
+
+  const fetchOptions = {
+    method: 'POST',
+    body: fd,
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    const tagJson = addTag(json.file_id, 'taloJaNaapurivikailmoitus', token);
+    return {json, tagJson};
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const uploadNaapurustoFeed = async (inputs, token) => {
+  const fd = new FormData();
+  fd.append('title', inputs.title);
+  fd.append('description', inputs.description);
+  fd.append('file', inputs.file);
+
+  const fetchOptions = {
+    method: 'POST',
+    body: fd,
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    // lisää tägi 
+    const tagJson = addTag(json.file_id, 'taloJaNaapuriNaapurustofeedi', token);
+    return {json, tagJson};
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
 const deleteFile = async (id) => {
   const fetchOptions = {
     method: 'DELETE',
@@ -299,4 +348,6 @@ export {
   addTag,
   uploadIlmoitus,
   uploadAvatar,
+  uploadNaapurustoFeed,
+  uploadVikailmoitus,
 };
