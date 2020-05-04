@@ -141,7 +141,6 @@ const uploadIlmoitus = async (inputs, token) => {
     const response = await fetch(baseUrl + 'media', fetchOptions);
     const json = await response.json();
     if (!response.ok) throw new Error(json.message + ': ' + json.error);
-    // lisää tägi mpjakk
     const tagJson = addTag(json.file_id, 'taloJaNaapuriilmoitukset', token);
     return {json, tagJson};
   } catch (e) {
@@ -163,7 +162,6 @@ const uploadAvatar = async (inputs, token, usrid) => {
     const response = await fetch(baseUrl + 'media', fetchOptions);
     const json = await response.json();
     if (!response.ok) throw new Error(json.message + ': ' + json.error);
-    // lisää tägi mpjakk
     const tagJson = addTag(json.file_id, 'avatar_' + usrid, token);
     return {json, tagJson};
   } catch (e) {
@@ -213,6 +211,7 @@ const register = async (inputs) => {
 };
 
 const updateProfile = async (inputs, token) => {
+  delete inputs.file;
   const fetchOptions = {
     method: 'PUT',
     headers: {

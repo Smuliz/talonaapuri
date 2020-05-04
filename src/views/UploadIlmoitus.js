@@ -31,7 +31,7 @@ const UploadIlmoitus = ({ history }) => {
             console.log(result);
             setTimeout(() => {
                 setLoading(false);
-                history.push('/home');
+                history.push('/admin');
             }, 2000);
         } catch (e) {
             console.log(e.message);

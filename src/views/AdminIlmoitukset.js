@@ -2,9 +2,16 @@ import React, { useContext } from 'react';
 import {Typography, Button} from '@material-ui/core';
 import AdminTable from '../components/Admin';
 import {Link as RouterLink} from 'react-router-dom';
+import {MediaContext} from '../contexts/MediaContext';
 import Nav from '../components/Nav';
 
-const AdminIlmoitukset = () => {
+const AdminIlmoitukset = ({history}) => {
+    const [user] = useContext(MediaContext);
+    if (user !== null) {
+    if (user.user_id !== 574) {
+        history.push('/home');
+    }
+};
     return (
         <>
         <Nav/>
@@ -27,7 +34,6 @@ const AdminIlmoitukset = () => {
                 Tee taloyhtiön ilmoitus.
             </Button>
             <AdminTable />
-            }
         </>
     );
 };

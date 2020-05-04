@@ -19,9 +19,10 @@ const ProfileForm = ({ history }) => {
         try {
             //await checkUserAvailable(inputs.username);
             const token = localStorage.getItem('token');
+            await uploadAvatar(inputs, token, user.user_id);
             await updateProfile(inputs, token);
             // tää kohta tosi sekava??
-            await uploadAvatar(inputs, token, user.user_id);
+            
             // toimiiko seuraava rivi? mistä saa file_id:n???
            // await addTag(json.file_id, 'avatar_' + user_id, token);
             const userdata = await checkToken(token);
@@ -32,7 +33,7 @@ const ProfileForm = ({ history }) => {
         }
     };
 
-    const { inputs, setInputs, handleInputChange, handleSubmit } = useProfileForm(user, doProfile);
+    const { inputs, setInputs, handleInputChange, handleSubmit, handleFileChange } = useProfileForm(doProfile);
 
     useEffect(() => {
         setInputs(user);
@@ -52,7 +53,7 @@ const ProfileForm = ({ history }) => {
             }
         });
     }, [user, setInputs]);
-
+console.log("rivi 55", user);
     return (
         <Grid container>
             <Grid item>
@@ -134,6 +135,8 @@ const ProfileForm = ({ history }) => {
                                         type="file"
                                         name="profileImage"
                                         errorMessages={['images only']}
+                                        accept="image/*"
+                                        onChange={handleFileChange}
                                     />
                                 </Grid>
 

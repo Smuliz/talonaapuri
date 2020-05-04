@@ -7,6 +7,8 @@ const useProfileForm = (callback) => {
         username: '',
         email: '',
         full_name: '',
+        file: null,
+        file_name:'',
     });
     const handleSubmit = (event) => {
         if (event) {
@@ -24,11 +26,24 @@ const useProfileForm = (callback) => {
         };
         });
     };
+
+    const handleFileChange = (event) => {
+        event.persist();
+        console.log(event.target.files[0]);
+        setInputs((inputs) => {
+          return {
+            ...inputs,
+            file: event.target.files[0],
+          };
+        });
+      };
+
     return {
         handleSubmit,
         handleInputChange,
         inputs,
         setInputs,
+        handleFileChange,
     };
 }
 
