@@ -23,6 +23,27 @@ const useAllMedia = (tag) => {
   return data;
 };
 
+const useAllNaapurustoMedia = (tag) => {
+  const [data, setData] = useState([]);
+  const fetchUrl = async () => {
+    const response = await fetch(baseUrl + 'tags/taloJaNaapuri' + tag);
+    const json = await response.json();
+    // haetaan yksittäiset kuvat, jotta saadan thumbnailit
+    const items = await Promise.all(json.map(async (item) => {
+      const response = await fetch(baseUrl + 'media/' + item.file_id);
+      return await response.json();
+    }));
+    console.log(items);
+    setData(items);
+  };
+
+  useEffect(() => {
+    fetchUrl();
+  }, []);
+
+  return data;
+};
+
 const useSingleMedia = (id) => {
   const [data, setData] = useState(null);
   const fetchUrl = async (fileid) => {
@@ -179,6 +200,31 @@ const uploadVikailmoitus = async (inputs, token) => {
   }
 };
 
+const uploadNaapurustoFeed = async (inputs, token) => {
+  const fd = new FormData();
+  fd.append('title', inputs.title);
+  fd.append('description', inputs.description);
+  fd.append('file', inputs.file);
+
+  const fetchOptions = {
+    method: 'POST',
+    body: fd,
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    // lisää tägi 
+    const tagJson = addTag(json.file_id, 'taloJaNaapuriNaapurustofeedi', token);
+    return {json, tagJson};
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
 const getUser = async (id, token) => {
   const fetchOptions = {
     headers: {
@@ -246,4 +292,6 @@ export {
   getUser,
   deleteFile,
   modifyFile,
+  useAllNaapurustoMedia,
+  uploadNaapurustoFeed,
 };

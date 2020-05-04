@@ -119,6 +119,17 @@ const Nav = ({history}) => {
                 </ListItemIcon>
                 <ListItemText primary="Vikailmoitus"/>
               </ListItem>
+            <ListItem
+            button
+            component={RouterLink}
+            onClick={toggleDrawer(false)}
+            to="/naapurustofeed"
+          >
+            <ListItemIcon>
+              <AccountBoxIcon/>
+            </ListItemIcon>
+            <ListItemText primary="NaapurustoFeed"/>
+          </ListItem>
               </>
           }
         </List>
