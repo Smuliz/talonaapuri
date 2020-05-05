@@ -4,7 +4,9 @@ import FeediTable from '../components/FeediTable';
 import {Link as RouterLink} from 'react-router-dom';
 import Nav from '../components/Nav';
 
+
 const NaapurustoFeed = () => {
+
     return (
         <>
         <Nav/>
@@ -33,6 +35,7 @@ const NaapurustoFeed = () => {
                 Omat feedit
             </Button>
             <FeediTable />
+
         </>
     );
 };

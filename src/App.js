@@ -13,10 +13,18 @@ import MyFiles from './views/MyFiles';
 import MyFeeds from './views/MyFeeds';
 import NaapurustoFeed from './views/NaapurustoFeed';
 import ModifyIlmoitus from './views/ModifyIlmoitus';
+import ModifyNaapurusto from './views/ModifyNaapurusto';
 import AdminIlmoitukset from './views/AdminIlmoitukset';
 import UploadIlmoitus from './views/UploadIlmoitus';
+import SingleNaapurusto from './views/SingleNaapurusto';
 import { MediaProvider } from './contexts/MediaContext';
 import { Container } from '@material-ui/core';
+
+
+
+
+
+
 
 const App = () => {
   return (
@@ -35,11 +43,13 @@ const App = () => {
             <Route path="/uploadilmoitus" component={UploadIlmoitus} />
             <Route path="/modify/:id" component={Modify} />
             <Route path="/modifyilmoitus/:id" component={ModifyIlmoitus} />
+            <Route path="/modifynaapurusto/:id" component={ModifyNaapurusto} />
             <Route path="/myfiles" component={MyFiles}/>
             <Route path="/myfeeds" component={MyFeeds}/>
             <Route path="/naapurustofeed" component={NaapurustoFeed}/>
             <Route path="/upload" component={Upload} />
             <Route path="/uploadnewfeed" component={UploadNewFeed}/>
+            <Route path="/singlenaapurusto/:id" component={SingleNaapurusto} />
           </Switch>
           </main>
         </Container>
@@ -47,5 +57,10 @@ const App = () => {
     </Router>
   );
 };
+
+
+
+
+
 
 export default App;

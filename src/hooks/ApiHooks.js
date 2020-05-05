@@ -331,15 +331,16 @@ const getAvatarImage = async (id) => {
   return await response.json();
 };
 
-const deleteComment = async (token, user_id) => {
+const deleteComment = async (user_id) => {
   const fetchOptions = {
     method: 'DELETE',
     headers: {
-      'x-access-token': token,
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem('token'),
     },
   };
   try {
-    const response = await fetch(baseUrl + '/comments/' + user_id, fetchOptions);
+    const response = await fetch(baseUrl + 'comments/' + user_id, fetchOptions);
     const json = await response.json();
     if (!response.ok) throw new Error(json.message + ': ' + json.error);
     return json;

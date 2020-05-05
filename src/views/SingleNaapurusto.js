@@ -11,7 +11,7 @@ import { TextValidator} from 'react-material-ui-form-validator';
 
 
 
-const Single = ({match}) => {
+const SingleNaapurusto = ({match}) => {
   console.log('match', match.params.id);
   const file = useSingleMedia(match.params.id);
   console.log('file', file);
@@ -19,6 +19,7 @@ const Single = ({match}) => {
   if (file !== null) {
     description = (JSON.parse(file.description));
   }
+  console.log("single",file);
 
   return (
     <>
@@ -50,6 +51,11 @@ const Single = ({match}) => {
             }
           </Paper>
 
+          <>
+          <Comment id={file.file_id} />
+          <CommentForm id={file.file_id} />
+          </>
+   
           
     
         </>
@@ -58,9 +64,9 @@ const Single = ({match}) => {
   );
 };
 
-Single.propTypes = {
+SingleNaapurusto.propTypes = {
   match: PropTypes.object,
 };
 
 
-export default Single;
+export default SingleNaapurusto;

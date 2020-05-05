@@ -56,7 +56,6 @@ const CommentForm = (id) => {
           color="primary"
           type="submit"
           variant="contained"
-          onClick={refresh}
           >
             Lisää Kommentti
 
