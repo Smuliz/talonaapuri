@@ -21,6 +21,10 @@ const CommentForm = (id) => {
 
     useEffect(() => {
     }, [setInputs]);
+
+    const refresh = () => {
+        window.location.reload(false);
+    };
  
     console.log('Komment FORM', id);
     return (
@@ -52,6 +56,7 @@ const CommentForm = (id) => {
           color="primary"
           type="submit"
           variant="contained"
+          onClick={refresh}
           >
             Lisää Kommentti
 

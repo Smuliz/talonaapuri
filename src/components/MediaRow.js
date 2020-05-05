@@ -27,6 +27,7 @@ const description = "hei";
   if (file.thumbnails) {
     thumb = mediaUrl + file.thumbnails.w320;
   }
+  console.log("FILUUUU", file);
   return (
     <>
       <img

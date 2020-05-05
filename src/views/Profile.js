@@ -44,7 +44,7 @@ const Profile = () => {
           {avatar.length > 0 &&
           <CardMedia
             component="img"
-            image={mediaUrl + avatar[0].filename}
+            image={mediaUrl + avatar.pop().filename}
             alt="Avatar image"
             title="Avatar image"
           />

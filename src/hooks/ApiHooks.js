@@ -360,8 +360,9 @@ const postComment = async (inputs, file_id, token) => {
     method: 'POST',
     headers: {
       'x-access-token': token,
+      'Content-Type': 'application/json'
     },
-    body: bodydata
+    body: JSON.stringify(bodydata)
   };
   try {
     const response = await fetch(baseUrl + 'comments', fetchOptions);
@@ -377,7 +378,9 @@ const getComments = async (id) => {
   console.log('comment id', id.id);
   const response = await fetch(baseUrl + 'comments/file/' + id.id);
   console.log(response);
-  return await response.json();
+  const kommentti = await response.json();
+  console.log("kommentti", kommentti);
+  return kommentti;
 };
 
 

@@ -19,7 +19,10 @@ const ProfileForm = ({ history }) => {
         try {
             //await checkUserAvailable(inputs.username);
             const token = localStorage.getItem('token');
+            if (inputs.file !== undefined) {
+                console.log("Yritetäänv avatar uploadia");
             await uploadAvatar(inputs, token, user.user_id);
+            }
             await updateProfile(inputs, token);
             const userdata = await checkToken(token);
             console.log('ProfileForm doProfile', userdata);
@@ -49,7 +52,7 @@ const ProfileForm = ({ history }) => {
             }
         });
     }, [user, setInputs]);
-console.log("rivi 55", user);
+// console.log("rivi 55", user);
     return (
         <Grid container>
             <Grid item>
