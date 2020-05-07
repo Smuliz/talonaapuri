@@ -1,0 +1,412 @@
+import {useState, useEffect, useContext} from 'react';
+import { MediaContext } from '../contexts/MediaContext';
+
+const baseUrl = 'http://media.mw.metropolia.fi/wbma/';
+
+// tagejä esim. ilmoitukset, vikailmoitukset, naapurusto
+const useAllMedia = (tag) => {
+  const [data, setData] = useState([]);
+  const fetchUrl = async () => {
+    const response = await fetch(baseUrl + 'tags/taloJaNaapuri' + tag);
+    const json = await response.json();
+    // haetaan yksittäiset kuvat, jotta saadan thumbnailit
+    const items = await Promise.all(json.map(async (item) => {
+      const response = await fetch(baseUrl + 'media/' + item.file_id);
+      return await response.json();
+    }));
+    console.log(items);
+    setData(items);
+  };
+
+  useEffect(() => {
+    fetchUrl();
+  }, []);
+
+  return data;
+};
+
+const useSingleMedia = (id) => {
+  const [data, setData] = useState(null);
+  const fetchUrl = async (fileid) => {
+    const response = await fetch(baseUrl + 'media/' + fileid);
+    const item = await response.json();
+    if (localStorage.getItem('token') !== null) {
+      const userResponse = await getUser(item.user_id,
+        localStorage.getItem('token'));
+      item.user = userResponse;
+    }
+    console.log('itemi', item);
+    setData(item);
+  };
+
+  useEffect(() => {
+    fetchUrl(id);
+  }, [id]);
+
+  return data;
+};
+
+const getUser = async (id, token) => {
+  const fetchOptions = {
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'users/' + id, fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const uploadVikailmoitus = async (inputs, token) => {
+  const fd = new FormData();
+  fd.append('title', inputs.title);
+  fd.append('description', inputs.description);
+  fd.append('file', inputs.file);
+
+  const fetchOptions = {
+    method: 'POST',
+    body: fd,
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    const tagJson = addTag(json.file_id, 'taloJaNaapurivikailmoitus', token);
+    return {json, tagJson};
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const uploadNaapurustoFeed = async (inputs, token) => {
+  const fd = new FormData();
+  fd.append('title', inputs.title);
+  fd.append('description', inputs.description);
+  fd.append('file', inputs.file);
+
+  const fetchOptions = {
+    method: 'POST',
+    body: fd,
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    // lisää tägi 
+    const tagJson = addTag(json.file_id, 'taloJaNaapuriNaapurustofeedi', token);
+    return {json, tagJson};
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const deleteFile = async (id) => {
+  const fetchOptions = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem('token'),
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media/' + id, fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const modifyFile = async (inputs, id) => {
+  const fetchOptions = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem('token'),
+    },
+    body: JSON.stringify(inputs),
+  };
+  try {
+    const response = await fetch(baseUrl + 'media/' + id, fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const upload = async (inputs, token, tag) => {
+  const fd = new FormData();
+  fd.append('title', inputs.title);
+  fd.append('description', inputs.description);
+  fd.append('file', inputs.file);
+
+  const fetchOptions = {
+    method: 'POST',
+    body: fd,
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    // lisää tägi mpjakk
+    const tagJson = addTag(json.file_id, 'taloJaNaapuri' + tag, token);
+    return {json, tagJson};
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const uploadIlmoitus = async (inputs, token) => {
+  const fd = new FormData();
+  fd.append('title', inputs.title);
+  fd.append('description', inputs.description);
+  fd.append('file', inputs.file);
+
+  const fetchOptions = {
+    method: 'POST',
+    body: fd,
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    const tagJson = addTag(json.file_id, 'taloJaNaapuriilmoitukset', token);
+    return {json, tagJson};
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const uploadAvatar = async (inputs, token, usrid) => {
+  const fd = new FormData();
+  fd.append('file', inputs.file);
+  const fetchOptions = {
+    method: 'POST',
+    body: fd,
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    const tagJson = addTag(json.file_id, 'avatar_' + usrid, token);
+    return {json, tagJson};
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+// eslint-disable-next-line camelcase
+const addTag = async (file_id, tag, token) => {
+  const tagOptions = {
+    method: 'POST',
+    body: JSON.stringify({
+      file_id,
+      tag,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+  };
+  try {
+    const tagResponse = await fetch(baseUrl + 'tags', tagOptions);
+    const tagJson = await tagResponse.json();
+    return tagJson;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+
+const register = async (inputs) => {
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(inputs),
+  };
+  try {
+    const response = await fetch(baseUrl + 'users', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const updateProfile = async (inputs, token) => {
+  delete inputs.file;
+  const fetchOptions = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+    body: JSON.stringify(inputs),
+  };
+  try {
+    const response = await fetch(baseUrl + 'users', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const login = async (inputs) => {
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(inputs),
+  };
+  try {
+    const response = await fetch(baseUrl + 'login', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const checkUserAvailable = async (name) => {
+  try {
+    const response = await fetch(baseUrl + 'users/username/' + name);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const checkToken = async (token) => {
+  const fetchOptions = {
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'users/user', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const getAvatarImage = async (id) => {
+  console.log('ai', id);
+  const response = await fetch(baseUrl + 'tags/avatar_' + id);
+  return await response.json();
+};
+
+const deleteComment = async (user_id) => {
+  const fetchOptions = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem('token'),
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'comments/' + user_id, fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const postComment = async (inputs, file_id, token) => {
+  
+  console.log("TOKEn postComment", token, inputs, file_id);
+  const bodydata = {
+    "file_id":file_id.id,
+    "comment":inputs
+  }
+  console.log(bodydata);
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'x-access-token': token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(bodydata)
+  };
+  try {
+    const response = await fetch(baseUrl + 'comments', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    return json;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+const getComments = async (id) => {
+  console.log('comment id', id.id);
+  const response = await fetch(baseUrl + 'comments/file/' + id.id);
+  console.log(response);
+  const kommentti = await response.json();
+  console.log("kommentti", kommentti);
+  return kommentti;
+};
+
+
+
+
+
+export { 
+  register,
+  login,
+  checkUserAvailable,
+  checkToken,
+  updateProfile,
+  getAvatarImage,
+  useAllMedia,
+  useSingleMedia,
+  modifyFile,
+  deleteFile,
+  getUser,
+  upload,
+  addTag,
+  uploadIlmoitus,
+  uploadAvatar,
+  uploadNaapurustoFeed,
+  uploadVikailmoitus,
+  deleteComment,
+  postComment,
+  getComments,
+};
