@@ -9,7 +9,7 @@ import logoKuva from '../Kuvat/SmartBuilding.png';
 import {makeStyles} from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import PersonIcon from '@material-ui/icons/Person';
-import {createMuiTheme, StylesProvider} from '@material-ui/core/styles';
+import {createMuiTheme} from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette:{
@@ -80,11 +80,11 @@ const LoginForm = ({ history }) => {
             history.push('/home');
         } catch (e) {
             console.log("login form",e.message);
+            alert('Wrong Username or Password... try again.');
         }
     };
     const { inputs, handleInputChange, handleSubmit } = useLoginForm(doLogin);
     return (
-        <StylesProvider injectFirst>
         <Grid container spacing={3} >
             <Grid item xs={12}>
                 <h1>Naapurusto</h1>
@@ -135,7 +135,6 @@ const LoginForm = ({ history }) => {
             </form>
             </Grid>
         </Grid>
-        </StylesProvider>
     );
 };
 LoginForm.propTypes = {

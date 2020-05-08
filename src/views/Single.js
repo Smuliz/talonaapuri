@@ -48,19 +48,22 @@ const Single = ({ match }) => {
           <Nav />
           <BackButton />
           <Typography
-            component="h2"
             variant="h3"
             align="center"
             gutterBottom>{file.title}
           </Typography>
 
           <Typography
-            component="h5"
             variant="h5"
-            align="center"
-            gutterBottom>
-            Ilmoituksen tiedot: {<br/>}
-            {description}
+            align="left"
+            gutterBottom
+            style={{width:'70%',margin: 'auto'}}
+            >
+            Ilmoituksen tiedot:
+              <Typography align="left"variant="h6" style={{margin: 'auto',marginBottom: '1rem'}}>
+              {description}
+                </Typography>
+            
           </Typography>
             {description &&
               <img src={thumb} className={classes.img} />

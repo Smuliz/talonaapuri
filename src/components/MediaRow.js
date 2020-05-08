@@ -20,7 +20,6 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
 
-
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -50,30 +49,38 @@ const theme = createMuiTheme({
   }
 });
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+
   },
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
-    maxWidth: 1000,
-    backgroundColor: '#ECDFC8'
+    maxWidth: '100%',
+    backgroundColor: '#ECDFC8',
   },
   icon: {
     color: '#DF7861',
-    marginBottom: '1rem',
+    marginBottom: '2rem',
   },
   img: {
     margin: 'auto',
     display: 'block',
     maxWidth: '75%',
+    minWidth: '60%',
   },
   image: {
+    display: 'block',
     width: '100%',
-    marginBottom: 'auto',
-    paddinBottom: '2rem',
+    marginBottom: '1rem',
+    minWidth: '60%',
+    maxHeight:'220px',
+  },
+  desc: {
+    maxWidth: '15rem',
+    overflow:'hidden',
+    maxHeight:'3rem'
   },
 }));
 

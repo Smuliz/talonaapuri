@@ -19,9 +19,13 @@ import {
   MuiThemeProvider,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import HomeIcon from '@material-ui/icons/Home';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import FaceIcon from '@material-ui/icons/Face';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ApartmentIcon from '@material-ui/icons/Apartment';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import { red } from '@material-ui/core/colors';
 import {createMuiTheme} from '@material-ui/core/styles';
 
@@ -120,7 +124,7 @@ console.log("USER",user);
             <MenuIcon/>
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Talo Ja Naapuri
+            Naapurusto
           </Typography>
           {user !== null &&
             <Button
@@ -146,21 +150,10 @@ console.log("USER",user);
             to="/home"
           >
             <ListItemIcon>
-              <HomeIcon/>
+              <NotificationsIcon/>
             </ListItemIcon>
             <ListItemText primary="Ilmoitukset"/>
           </ListItem>
-            <ListItem
-              button
-              component={RouterLink}
-              onClick={toggleDrawer(false)}
-              to="/myfiles"
-              >
-                <ListItemIcon>
-                <AccountBoxIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Vikailmoitukset"/>
-              </ListItem>
               <ListItem
             button
             component={RouterLink}
@@ -168,10 +161,21 @@ console.log("USER",user);
             to="/naapurustofeed"
           >
             <ListItemIcon>
-              <AccountBoxIcon/>
+              <ApartmentIcon/>
             </ListItemIcon>
             <ListItemText primary="Naapurusto"/>
           </ListItem>
+          <ListItem
+              button
+              component={RouterLink}
+              onClick={toggleDrawer(false)}
+              to="/myfiles"
+              >
+                <ListItemIcon>
+                <NewReleasesIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Vikailmoitukset"/>
+              </ListItem>
             <ListItem
               button
               component={RouterLink}
@@ -179,7 +183,7 @@ console.log("USER",user);
               to="/profile"
               >
                 <ListItemIcon>
-                <AccountBoxIcon />
+                <FaceIcon/>
                 </ListItemIcon>
                 <ListItemText primary="Profiili" />
             </ListItem>
@@ -191,9 +195,9 @@ console.log("USER",user);
             to="/admin"
             >
               <ListItemIcon>
-                <AccountBoxIcon />
+                <SupervisorAccountIcon/>
               </ListItemIcon>
-              <ListItemText primary="Taloyhtiön ilmoitukset" />
+              <ListItemText primary="Järjestelmänvalvoja" />
             </ListItem>
             }
               </>

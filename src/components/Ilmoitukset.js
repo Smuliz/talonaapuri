@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
       color: 'rgba(255, 255, 255, 0.54)',
     },
     korkeus: {
-      backgroundColor: "yellow",
+      marginBottom: '1rem',
     },
   }));
 
@@ -79,15 +79,15 @@ return (
     <MuiThemeProvider theme={theme}>
         <div className={classes.root}>
             <GridList
-            cellHeight={"400"}
+            cellHeight={"220"}
             className={classes.gridList}
             cols={1}
             spacing={2}>
 
                 {
                     picArray.map((file) => 
-                        <GridListTile key={file.file_id}>
-                        <MediaRowIlmoitukset file={file} style={{height:'400px'}}/>
+                        <GridListTile key={file.file_id} className={classes.korkeus}>
+                        <MediaRowIlmoitukset file={file} />
                         
                         </GridListTile>
                     )

@@ -39,19 +39,26 @@ const useStyles = makeStyles((theme) => ({
     regButton: {
       marginTop:'1rem',
     },
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      overflow: 'hidden',
+      backgroundColor: '#ECB390',
+    },
   }));
 
 
 
 const MyFiles = () => {
+    const classes = useStyles();
     return (
         <>
         <MuiThemeProvider theme={theme}>
         <Nav/>
             <Typography
-                component="h1"
                 variant="h2"
-                gutterBottom>Vikailmoituket
+                gutterBottom>Vikailmoitukset
             </Typography>
             <Typography
                 component="p"

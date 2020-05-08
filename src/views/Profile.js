@@ -40,7 +40,7 @@ const Profile = () => {
         variant="h2"
         gutterBottom>Profile</Typography>
       {user !== null &&
-        <Card>
+        <Card style={{backgroundColor:'#ECDFC8'}}>
           {avatar.length > 0 &&
           <CardMedia
             component="img"

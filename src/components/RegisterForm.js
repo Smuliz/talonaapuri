@@ -4,12 +4,74 @@ import { register, login, checkUserAvailable } from '../hooks/ApiHooks';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MediaContext } from '../contexts/MediaContext';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, MuiThemeProvider } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import {createMuiTheme} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core';
+
+const theme = createMuiTheme({
+    palette:{
+      primary: {
+        main: '#DF7861'
+      },
+    },
+    overrides: {
+        MuiContainer:{
+            root:{
+              padding:'0',
+            },
+        },
+  
+      MuiGrid:{
+        root:{
+          marginTop: '5rem',
+          display: 'flex',
+          justifyContent: 'center',
+        }
+    },
+  
+      MuiButton: {
+        containedPrimary: {
+          marginTop: '1rem',
+          backgroundColor: "#DF7861",
+          width: '60%',
+          maxWidth: '12rem',
+        }
+  
+      }
+    }
+  });
+  
+  
+  const useStyles = makeStyles((theme) => ({
+      containeri:{
+          padding:0,
+      },
+      image: {
+        borderRadius: '50%',
+        width: '50%',
+      },
+      gridKuva:{
+          marginTop:'1rem',
+          marginBottom:'-3rem',
+  
+      },
+      person:{
+          height:0,
+          marginTop:'1.3rem',
+      },
+      lock:{
+          marginBottom:'.3rem',
+      },
+  
+    }));
+
+
 
 const RegisterForm = ({ history }) => {
     // eslint-disable-next-line no-unused-vars
     const [user, setUser] = useContext(MediaContext);
+    const classes = useStyles();
     const alkuarvot = {
         username: undefined,
         password: undefined,
@@ -61,6 +123,7 @@ const RegisterForm = ({ history }) => {
     }, [inputs]);
 
     return (
+        <MuiThemeProvider theme={theme}>
         <Grid container>
             <Grid item xs={12}>
                 <h1>Register</h1>
@@ -76,7 +139,7 @@ const RegisterForm = ({ history }) => {
                                 fullWidth
                                 type="text"
                                 name="username"
-                                label="Username"
+                                label="Username*"
                                 onChange={handleInputChange}
                                 value={inputs.username}
                                 helperText={errorMessage.username}
@@ -98,7 +161,7 @@ const RegisterForm = ({ history }) => {
                                 fullWidth
                                 type="password"
                                 name="password"
-                                label="Password"
+                                label="Password*"
                                 onChange={handleInputChange}
                                 value={inputs.password}
                                 validators={[
@@ -116,7 +179,7 @@ const RegisterForm = ({ history }) => {
                                 fullWidth
                                 type="password"
                                 name="confirm"
-                                label="Confirm password"
+                                label="Confirm password*"
                                 onChange={handleInputChange}
                                 value={inputs.confirm}
                                 validators={['isPasswordMatch', 'required']}
@@ -128,7 +191,7 @@ const RegisterForm = ({ history }) => {
                                 fullWidth
                                 type="email"
                                 name="email"
-                                label="Email"
+                                label="Email*"
                                 onChange={handleInputChange}
                                 value={inputs.email}
                                 validators={['required', 'isEmail']}
@@ -156,6 +219,7 @@ const RegisterForm = ({ history }) => {
                 </ValidatorForm>
             </Grid>
         </Grid>
+        </MuiThemeProvider>
     );
 };
 

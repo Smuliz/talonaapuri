@@ -57,7 +57,13 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     backgroundColor: '#ECB390',
   },
-  
+
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
+  },
+  korkeus: {
+    marginBottom: '1rem',
+  },
 }));
 
 const MyTable = () => {
@@ -77,7 +83,7 @@ const MyTable = () => {
     <div className={classes.root}>
     <MuiThemeProvider theme={theme}>
         <GridList
-          cellHeight={180}
+          cellHeight={220}
           className={classes.gridList}
           cols={1}>
           <GridListTile key="Subheader" cols={1} style={{height: 'auto'}}>
@@ -85,7 +91,7 @@ const MyTable = () => {
           </GridListTile>
           {
             newPicArray.map((file) =>
-              <GridListTile key={file.file_id}>
+              <GridListTile key={file.file_id} className={classes.korkeus}>
                 <MediaRow file={file} myfiles={true} />
               </GridListTile>)
           }

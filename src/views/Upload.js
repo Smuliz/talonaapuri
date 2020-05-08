@@ -13,6 +13,7 @@ import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import BackButton from '../components/BackButton';
 import Nav from '../components/Nav';
 import {createMuiTheme} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core';
 
 const theme = createMuiTheme({
   palette:{
@@ -36,13 +37,33 @@ const theme = createMuiTheme({
         backgroundColor: "#DF7861",
         width: '60%',
         maxWidth: '12rem',
+        marginBottom:'1rem',
       }
 
     }
   }
 });
 
+const useStyles = makeStyles((theme) => ({
+    regButton: {
+      marginTop:'1rem',
+    },
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      overflow: 'hidden',
+      backgroundColor: '#ECB390',
+    },
+    filu:{
+      marginTop:'2rem',
+      marginBottom:'2rem',
+    },
+  }));
+
+
 const Upload = ({history}) => {
+  const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const doUpload = async () => {
     setLoading(true);
@@ -104,6 +125,7 @@ const Upload = ({history}) => {
   return (
     <>
     <Nav/>
+      <MuiThemeProvider theme={theme}>
       <BackButton />
       <Grid container>
         <Grid item xs={12}>
@@ -122,7 +144,7 @@ const Upload = ({history}) => {
             <Grid container>
               <Grid container item>
                 <TextValidator
-                  align="center"
+                  fullWidth
                   label="Title"
                   type="text"
                   name="title"
@@ -138,6 +160,7 @@ const Upload = ({history}) => {
               </Grid>
               <Grid container item>
                 <TextValidator
+                  fullWidth
                   id="standard-multiline-static"
                   multiline
                   rows={4}
@@ -153,6 +176,7 @@ const Upload = ({history}) => {
               </Grid>
               <Grid container item>
                 <TextValidator
+                  className={classes.filu}
                   type="file"
                   name="file"
                   accept="image/*,video/*,audio/*"
@@ -165,12 +189,13 @@ const Upload = ({history}) => {
                   type="submit"
                   variant="contained"
                 >
-                  Lähetä vikailmoitus.
+                  Lähetä vikailmoitus
                 </Button>
               </Grid>
             </Grid>
           </ValidatorForm>
-          {loading &&
+        </Grid>
+        {loading &&
           <Grid item>
             <CircularProgress/>
           </Grid>
@@ -188,8 +213,8 @@ const Upload = ({history}) => {
           
           </Grid>
           }
-        </Grid>
       </Grid>
+      </MuiThemeProvider>
     </>
   );
 };

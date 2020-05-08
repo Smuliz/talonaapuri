@@ -6,15 +6,66 @@ import {
   Grid,
   CircularProgress,
   Typography,
+  MuiThemeProvider,
 } from '@material-ui/core';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import BackButton from '../components/BackButton';
 import useModifyForm from '../hooks/ModifyHooks';
 import Nav from '../components/Nav';
+import {createMuiTheme} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core';
 
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
+
+const theme = createMuiTheme({
+  palette:{
+    primary: {
+      main: '#DF7861'
+    },
+  },
+  overrides: {
+
+    MuiGrid:{
+      root:{
+        marginTop: '5rem',
+        display: 'flex',
+        justifyContent: 'center',
+      }
+  },
+
+    MuiButton: {
+      containedPrimary: {
+        marginTop: '1rem',
+        backgroundColor: "#DF7861",
+        width: '60%',
+        maxWidth: '12rem',
+        marginBottom:'1rem',
+      }
+
+    }
+  }
+});
+
+const useStyles = makeStyles((theme) => ({
+    regButton: {
+      marginTop:'1rem',
+    },
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      overflow: 'hidden',
+      backgroundColor: '#ECB390',
+    },
+    filu:{
+      marginTop:'2rem',
+      marginBottom:'2rem',
+    },
+  }));
+
 const ModifyIlmoitus = ({history, match}) => {
+  const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const file = useSingleMedia(match.params.id);
 
@@ -23,9 +74,7 @@ const ModifyIlmoitus = ({history, match}) => {
     try {
       const modifyObject = {
         title: inputs.title,
-        description: JSON.stringify({
-          desc: inputs.description,
-        }),
+        description: inputs.description,
       };
       const result = await modifyFile(modifyObject, match.params.id);
       console.log(result);
@@ -44,7 +93,7 @@ const ModifyIlmoitus = ({history, match}) => {
   useEffect(() => {
     (async () => {
       if (file !== null) {
-        const description = (JSON.parse(file.description));
+        const description =file.description;
         setInputs((inputs) => {
           return {
             title: file.title,
@@ -62,12 +111,13 @@ const ModifyIlmoitus = ({history, match}) => {
     <>
     <Nav/>
       <BackButton />
+      <MuiThemeProvider theme={theme}>
       <Grid container>
         <Grid item xs={12}>
           <Typography
             component="h1"
             variant="h2"
-            gutterBottom>Modify</Typography>
+            gutterBottom>Muokkaa</Typography>
         </Grid>
         <Grid item>
           <ValidatorForm
@@ -110,17 +160,19 @@ const ModifyIlmoitus = ({history, match}) => {
               </Grid>
               <Grid container item>
                 <Button
+                  className={classes.filu}
                   fullWidth
                   color="primary"
                   type="submit"
                   variant="contained"
                 >
-                  Save
+                  Tallenna
                 </Button>
               </Grid>
             </Grid>
           </ValidatorForm>
-          {loading &&
+        </Grid>
+        {loading &&
             <Grid item>
               <CircularProgress />
             </Grid>
@@ -138,8 +190,8 @@ const ModifyIlmoitus = ({history, match}) => {
               
             </Grid>
           }
-        </Grid>
       </Grid>
+      </MuiThemeProvider>
     </>
   );
 };

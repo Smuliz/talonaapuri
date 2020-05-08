@@ -13,7 +13,7 @@ const BackButton = ({history}) => {
         history.goBack();
       }}
     >
-      Back
+      Takaisin
     </Button>
   );
 };

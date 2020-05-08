@@ -4,8 +4,42 @@ import { updateProfile, checkUserAvailable, checkToken, uploadAvatar } from '../
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MediaContext } from '../contexts/MediaContext';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, MuiThemeProvider } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import {createMuiTheme} from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette:{
+    primary: {
+      main: '#DF7861'
+    },
+  },
+  overrides: {
+      MuiContainer:{
+          root:{
+            padding:'0',
+          },
+      },
+
+    MuiGrid:{
+      root:{
+        marginTop: '5rem',
+        display: 'flex',
+        justifyContent: 'center',
+      }
+  },
+
+    MuiButton: {
+      containedPrimary: {
+        marginTop: '1rem',
+        backgroundColor: "#DF7861",
+        width: '60%',
+        maxWidth: '12rem',
+      }
+
+    }
+  }
+});
 
 const ProfileForm = ({ history }) => {
     // eslint-disable-next-line no-unused-vars
@@ -54,22 +88,22 @@ const ProfileForm = ({ history }) => {
     }, [user, setInputs]);
 // console.log("rivi 55", user);
     return (
+        <MuiThemeProvider theme={theme}>
         <Grid container>
             <Grid item>
                 <Button
+                    variant="contained"
                     fullWidth
                     color="primary"
                     onClick={showHide}
                 >
-                    Update profile
+                    Päivitä profiili
                 </Button>
             </Grid>
 
             {toggle &&
                 <>
-                    <Grid item>
-                        <h1>Update profile</h1>
-                    </Grid>
+                
                     <Grid item>
                         <ValidatorForm
                             onSubmit={handleSubmit}
@@ -145,7 +179,7 @@ const ProfileForm = ({ history }) => {
                                         color="primary"
                                         type="submit"
                                         variant="contained">
-                                        Save profile
+                                        Tallenna 
                                     </Button>
                                 </Grid>
                             </Grid>
@@ -154,6 +188,7 @@ const ProfileForm = ({ history }) => {
                 </>
             }
         </Grid>
+        </MuiThemeProvider>
     );
 };
 

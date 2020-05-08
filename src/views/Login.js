@@ -8,7 +8,7 @@ import {makeStyles} from '@material-ui/core';
 const theme = createMuiTheme({
   palette:{
     primary: {
-      main: '#ff4400'
+      main: '#DF7861'
     },
   },
   overrides: {

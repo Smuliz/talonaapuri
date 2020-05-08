@@ -9,23 +9,60 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 import {MediaContext} from '../contexts/MediaContext';
+import {createMuiTheme} from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette:{
+    primary: {
+      main: '#DF7861'
+    },
+  },
+  overrides: {
+
+    MuiGrid:{
+      root:{
+        marginTop: '5rem',
+        display: 'flex',
+        justifyContent: 'center',
+      }
+  },
+
+    MuiButton: {
+      containedPrimary: {
+        marginTop: '1rem',
+        backgroundColor: "#DF7861",
+        width: '60%',
+        maxWidth: '12rem',
+        marginBottom:'1rem',
+      }
+
+    }
+  }
+});
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    flexWrap: 'nowrap',
+    justifyContent: 'space-between',
     overflow: 'hidden',
-    backgroundColor: "#ECB390",
+    backgroundColor: '#ECB390',
   },
   gridList: {
     width: '100%',
     height: '100%',
+    backgroundColor: '#ECB390',
   },
+
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
+  korkeus: {
+    marginBottom: '1rem',
+  },
 }));
+
 
 const AdminTable = () => {
   const [user] = useContext(MediaContext);
@@ -44,7 +81,7 @@ const AdminTable = () => {
     <div className={classes.root}>
     
         <GridList
-          cellHeight={180}
+          cellHeight={220}
           className={classes.gridList}
           cols={1}>
           <GridListTile key="Subheader" cols={1} style={{height: 'auto'}}>
@@ -52,7 +89,7 @@ const AdminTable = () => {
           </GridListTile>
           {
             newPicArray.map((file) =>
-              <GridListTile key={file.file_id}>
+              <GridListTile key={file.file_id} className={classes.korkeus}>
                 <MediaRowIlmoitukset file={file} myfiles={true} />
               </GridListTile>)
           }

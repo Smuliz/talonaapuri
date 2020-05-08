@@ -67,20 +67,19 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     display: 'block',
     maxWidth: '75%',
-    minWidth: '75%',
+    minWidth: '60%',
   },
   image: {
     display: 'block',
     width: '100%',
-    marginBottom: 'auto',
-    minWidth: '100%',
+    marginBottom: '1rem',
+    minWidth: '60%',
+    maxHeight:'220px',
   },
   desc: {
     maxWidth: '15rem',
-    height: '30%',
-    maxHeight: '3rem',
-    overflow: 'hidden',
-
+    overflow:'hidden',
+    maxHeight:'3rem'
   },
 }));
 
@@ -108,7 +107,7 @@ const description = file.description;
                 </ButtonBase>
               </Grid>
               <Grid item xs sm container>
-                <Grid item xs container direction="column" spacing={2}>
+                <Grid item  container direction="column" spacing={2} xs>
                   <Grid item xs >
                     <Typography gutterBottom variant="subtitle1" className={classes.desc}>
                       {file.title}
