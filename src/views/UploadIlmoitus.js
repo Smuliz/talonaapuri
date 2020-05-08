@@ -22,9 +22,7 @@ const UploadIlmoitus = ({ history }) => {
         try {
             const uploadObject = {
                 title: inputs.title,
-                description: JSON.stringify({
-                    desc: inputs.description,
-                }),
+                description: inputs.description,
                 file: inputs.file,
             };
             const result = await uploadIlmoitus(uploadObject, localStorage.getItem('token'));
@@ -125,9 +123,7 @@ const UploadIlmoitus = ({ history }) => {
                                         name="description"
                                         value={inputs.description}
                                         onChange={handleInputChange}
-                                        validators={
-                                            ['matchRegexp:^[a-öA-Ö]+(([\',. -][a-öA-Ö ])?[a-öA-Ö]*)*$']
-                                        }
+                                 
                                         errorMessages={['text only']}
                                     />
                                 </Grid>

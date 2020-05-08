@@ -19,9 +19,7 @@ const UploadNewFeed = ({history}) => {
     try {
       const uploadObject = {
         title: inputs.title,
-        description: JSON.stringify({
-          desc: inputs.description,
-        }),
+        description: inputs.description,
         file: inputs.file,
       };
       const result = await uploadNaapurustoFeed(uploadObject, localStorage.getItem('token'));

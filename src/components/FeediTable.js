@@ -48,8 +48,8 @@ const FeediTable = () => {
         <GridList
           cellHeight={180}
           className={classes.gridList}
-          cols={matches ? 3 : 2}>
-          <GridListTile key="Subheader" cols={3} style={{height: 'auto'}}>
+          cols={1}>
+          <GridListTile key="Subheader" cols={1} style={{height: 'auto'}}>
             <ListSubheader component="div">All Media</ListSubheader>
           </GridListTile>
           {

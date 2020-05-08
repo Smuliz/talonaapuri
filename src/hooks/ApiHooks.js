@@ -26,6 +26,7 @@ const useAllMedia = (tag) => {
 };
 
 const useSingleMedia = (id) => {
+  console.log("usesingle", id);
   const [data, setData] = useState(null);
   const fetchUrl = async (fileid) => {
     const response = await fetch(baseUrl + 'media/' + fileid);

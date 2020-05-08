@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useSingleMedia} from '../hooks/ApiHooks';
-import {Typography, Paper, Button} from '@material-ui/core';
+import {Typography, Paper, Button, makeStyles} from '@material-ui/core';
 import BackButton from '../components/BackButton';
 import Media from '../components/Media';
 import Comment from '../components/Comments';
@@ -9,17 +9,34 @@ import CommentForm from '../components/CommentForm';
 import Nav from '../components/Nav';
 import { TextValidator} from 'react-material-ui-form-validator';
 
+const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    padding:0,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '80%',
+  }
+}));
 
-const SingleNaapurusto = ({match}) => {
-  console.log('match', match.params.id);
+const SingleNaapurusto = ({ match }) => {
+  const classes = useStyles();
+  console.log('matchsinglenaapurusto', match.params.id);
   const file = useSingleMedia(match.params.id);
   console.log('file', file);
   let description = undefined;
   if (file !== null) {
-    description = (JSON.parse(file.description));
+    description = file.description;
   }
-  console.log("single",file);
+  let thumb = 'http://placekitten.com/200/300';
+  if (file !== null) {
+    thumb = mediaUrl + file.thumbnails.w640;
+  }
+  console.log("singlenaaapurustofile",file);
 
   return (
     <>
@@ -43,13 +60,11 @@ const SingleNaapurusto = ({match}) => {
             component="p"
             variant="caption"
             gutterBottom>
-            {description.desc}
+            {description}
           </Typography>
-          <Paper>
-            {description &&
-              <Media file={file} description={description} />
+          {description &&
+              <img src={thumb} className={classes.img} />
             }
-          </Paper>
 
           <>
           <Comment id={file.file_id} />

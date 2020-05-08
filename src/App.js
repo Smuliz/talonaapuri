@@ -29,7 +29,7 @@ import { Container } from '@material-ui/core';
 const App = () => {
   return (
     // eslint-disable-next-line no-undef
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <MediaProvider>
         <Container maxWidth="md">
           <main>
@@ -39,6 +39,7 @@ const App = () => {
             <Route path="/profile" component={Profile} />
             <Route path="/logout" component={Logout} />
             <Route path="/single/:id" component={Single} />
+            <Route path="/singlenaapurusto/:id" component={SingleNaapurusto} />
             <Route path="/admin" component={AdminIlmoitukset} />
             <Route path="/uploadilmoitus" component={UploadIlmoitus} />
             <Route path="/modify/:id" component={Modify} />
@@ -49,7 +50,6 @@ const App = () => {
             <Route path="/naapurustofeed" component={NaapurustoFeed}/>
             <Route path="/upload" component={Upload} />
             <Route path="/uploadnewfeed" component={UploadNewFeed}/>
-            <Route path="/singlenaapurusto/:id" component={SingleNaapurusto} />
           </Switch>
           </main>
         </Container>

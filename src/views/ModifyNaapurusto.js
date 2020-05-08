@@ -23,9 +23,8 @@ const ModifyNaapurusto = ({history, match}) => {
     try {
       const modifyObject = {
         title: inputs.title,
-        description: JSON.stringify({
-          desc: inputs.description,
-        }),
+        description: inputs.description,
+
       };
       const result = await modifyFile(modifyObject, match.params.id);
       console.log(result);
@@ -44,11 +43,11 @@ const ModifyNaapurusto = ({history, match}) => {
   useEffect(() => {
     (async () => {
       if (file !== null) {
-        const description = (JSON.parse(file.description));
+        const description = file.description;
         setInputs((inputs) => {
           return {
             title: file.title,
-            description: description.desc,
+            description: description,
             filename: file.filename,
           };
         });

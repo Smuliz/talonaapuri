@@ -17,7 +17,7 @@ import {createMuiTheme} from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette:{
     primary: {
-      main: '#ff4400'
+      main: '#DF7861'
     },
   },
   overrides: {
@@ -47,18 +47,17 @@ const theme = createMuiTheme({
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    flexWrap: 'nowrap',
+    justifyContent: 'space-between',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: '#ECB390',
   },
   gridList: {
     width: '100%',
     height: '100%',
+    backgroundColor: '#ECB390',
   },
-  icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
-  },
+  
 }));
 
 const MyTable = () => {

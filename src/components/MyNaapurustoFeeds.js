@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import MediaRow from './MediaRow';
+import MediaRowNaapurusto from './MediaRowNaapurusto';
 import {useAllMedia} from '../hooks/ApiHooks';
 import {
   GridList,
@@ -53,7 +53,7 @@ const MyNaapurustoFeeds = () => {
           {
             newPicArray.map((file) =>
               <GridListTile key={file.file_id}>
-                <MediaRow file={file} myfiles={true} />
+                <MediaRowNaapurusto file={file} myfiles={true} />
               </GridListTile>)
           }
         </GridList>

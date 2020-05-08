@@ -1,9 +1,40 @@
 import React, { useContext } from 'react';
-import {Typography, Button} from '@material-ui/core';
+import {Typography, Button, makeStyles, MuiThemeProvider, Grid} from '@material-ui/core';
 import AdminTable from '../components/Admin';
 import {Link as RouterLink} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
 import Nav from '../components/Nav';
+import {createMuiTheme} from '@material-ui/core/styles';
+
+
+const theme = createMuiTheme({
+    palette:{
+      primary: {
+        main: '#DF7861'
+      },
+    },
+    overrides: {
+  
+      MuiGrid:{
+        root:{
+          marginTop: '5rem',
+          display: 'flex',
+          justifyContent: 'center',
+        }
+    },
+  
+      MuiButton: {
+        containedPrimary: {
+          marginTop: '1rem',
+          backgroundColor: "#DF7861",
+          width: '60%',
+          maxWidth: '15rem',
+          marginBottom:'1rem',
+        }
+  
+      }
+    }
+  });
 
 const AdminIlmoitukset = ({history}) => {
     const [user] = useContext(MediaContext);
@@ -14,6 +45,7 @@ const AdminIlmoitukset = ({history}) => {
 };
     return (
         <>
+        <MuiThemeProvider theme={theme}>
         <Nav/>
             <Typography
                 component="h1"
@@ -25,15 +57,19 @@ const AdminIlmoitukset = ({history}) => {
                 variant="p"
                 gutterBottom>Lorem impus knvnwinvqiwnopn nqwnjqen neqöjbjeb jqfjqbejbö bqöjbq bqnö jbjöqb be qöbjevbrkrenbinir.
             </Typography>
-            
+            <Grid item>
             <Button
-            color="inherit"
+            align="center"
+            color="primary"
             component={RouterLink}
             to="/uploadilmoitus"
+            variant="contained"
             >
-                Tee taloyhtiön ilmoitus.
+            Tee taloyhtiön ilmoitus
             </Button>
+            </Grid>
             <AdminTable />
+            </MuiThemeProvider>
         </>
     );
 };

@@ -7,10 +7,40 @@ import {
   Grid,
   CircularProgress,
   Typography,
+  MuiThemeProvider,
 } from '@material-ui/core';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import BackButton from '../components/BackButton';
 import Nav from '../components/Nav';
+import {createMuiTheme} from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette:{
+    primary: {
+      main: '#DF7861'
+    },
+  },
+  overrides: {
+
+    MuiGrid:{
+      root:{
+        marginTop: '5rem',
+        display: 'flex',
+        justifyContent: 'center',
+      }
+  },
+
+    MuiButton: {
+      containedPrimary: {
+        marginTop: '1rem',
+        backgroundColor: "#DF7861",
+        width: '60%',
+        maxWidth: '12rem',
+      }
+
+    }
+  }
+});
 
 const Upload = ({history}) => {
   const [loading, setLoading] = useState(false);
@@ -19,9 +49,7 @@ const Upload = ({history}) => {
     try {
       const uploadObject = {
         title: inputs.title,
-        description: JSON.stringify({
-          desc: inputs.description,
-        }),
+        description: inputs.description,
         file: inputs.file,
       };
       const result = await uploadVikailmoitus(uploadObject, localStorage.getItem('token'));
@@ -81,6 +109,7 @@ const Upload = ({history}) => {
         <Grid item xs={12}>
           <Typography
             component="h1"
+            align="center"
             variant="h2"
             gutterBottom>Tee vikailmoitus</Typography>
         </Grid>
@@ -93,7 +122,7 @@ const Upload = ({history}) => {
             <Grid container>
               <Grid container item>
                 <TextValidator
-                  fullWidth
+                  align="center"
                   label="Title"
                   type="text"
                   name="title"
@@ -110,7 +139,6 @@ const Upload = ({history}) => {
               <Grid container item>
                 <TextValidator
                   id="standard-multiline-static"
-                  fullWidth
                   multiline
                   rows={4}
                   label="Description"
@@ -125,7 +153,6 @@ const Upload = ({history}) => {
               </Grid>
               <Grid container item>
                 <TextValidator
-                  fullWidth
                   type="file"
                   name="file"
                   accept="image/*,video/*,audio/*"
@@ -134,7 +161,6 @@ const Upload = ({history}) => {
               </Grid>
               <Grid container item>
                 <Button
-                  fullWidth
                   color="primary"
                   type="submit"
                   variant="contained"

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link as RouterLink} from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Paper,
   Grid,
@@ -14,28 +14,28 @@ import {
 import PageviewIcon from '@material-ui/icons/Pageview';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
-import {deleteFile} from '../hooks/ApiHooks';
-import {createMuiTheme} from '@material-ui/core/styles';
+import { deleteFile } from '../hooks/ApiHooks';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
 
 
 const theme = createMuiTheme({
-  palette:{
+  palette: {
     primary: {
-      main: '#ff4400'
+      main: '#DF7861'
     },
   },
   overrides: {
 
-    MuiGrid:{
-      root:{
+    MuiGrid: {
+      root: {
         marginTop: '5rem',
         display: 'flex',
         justifyContent: 'center',
       }
-  },
+    },
 
     MuiButton: {
       containedPrimary: {
@@ -43,7 +43,7 @@ const theme = createMuiTheme({
         backgroundColor: "#DF7861",
         width: '60%',
         maxWidth: '12rem',
-        marginBottom:'1rem',
+        marginBottom: '1rem',
       }
 
     }
@@ -52,26 +52,28 @@ const theme = createMuiTheme({
 
 
 const useStyles = makeStyles((theme) => ({
-  root:{
-    flexGrow:1,
+  root: {
+    flexGrow: 1,
   },
-  paper:{
+  paper: {
     padding: theme.spacing(2),
-    margin:'auto',
-    maxWidth:500,
+    margin: 'auto',
+    maxWidth: 1000,
+    backgroundColor: '#ECDFC8'
   },
   icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
+    color: '#DF7861',
+    marginBottom: '1rem',
   },
-  img:{
-    margin:'auto',
-    display:'block',
-    maxWidth:'100%',
-    maxHeight:'100%',
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '75%',
   },
-  image:{
-    width:128,
-    height:128,
+  image: {
+    width: '100%',
+    marginBottom: 'auto',
+    paddinBottom: '2rem',
   },
 }));
 
@@ -117,45 +119,83 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const MediaRow = ({file, myfiles}) => {
-  const description = "hei";
+const MediaRow = ({ file, myfiles }) => {
+  const description = file.description;
   const classes = useStyles();
   let thumb = 'http://placekitten.com/200/300';
   if (file.thumbnails) {
-    thumb = mediaUrl + file.thumbnails.w160;
+    thumb = mediaUrl + file.thumbnails.w320;
   }
-  console.log("FILUUUU", file);
+  console.log("FILUUUU MediaRow", file);
   return (
     <>
 
-    <MuiThemeProvider theme={theme}>
-      <div className={classes.root}>
-      <Paper className={classes.paper}>
-          <Grid item>
+      <MuiThemeProvider theme={theme}>
+        <div className={classes.root}>
+          <Paper className={classes.paper}>
             <Grid item>
-              <ButtonBase className={classes.image}>
-              <img
-              className={classes.img}
-              src={thumb}
-              alt={file.title}
-          />
-          </ButtonBase>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs >
-                <Typography gutterBottom variant="subtitle1">
-                  {file.title}
-                </Typography>
-                <Typography variant="body2">
-                  {description}
-                </Typography>
+              <Grid item>
+                <ButtonBase className={classes.image}>
+                  <img
+                    className={classes.img}
+                    src={thumb}
+                    alt={file.title}
+                  />
+                </ButtonBase>
+              </Grid>
+              <Grid item xs={12} sm container>
+                <Grid item xs container direction="column" spacing={2}>
+                  <Grid item xs >
+                    <Typography gutterBottom variant="subtitle1">
+                      {file.title}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs >
+                    <Typography gutterBottom variant="subtitle1">
+                      {description}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs >
+                    <IconButton
+                      aria-label={`info about ${file.title}`}
+                      component={RouterLink}
+                      to={'/single/' + file.file_id}
+                      className={classes.icon}
+                    >
+                      <PageviewIcon fontSize="large" />
+                    </IconButton>
+                    {myfiles &&
+                    <>
+                    <IconButton
+                      aria-label={`Modify file`}
+                      component={RouterLink}
+                      to={'/modify/' + file.file_id}
+                      className={classes.icon}
+                    >
+                      <CreateIcon fontSize="large" />
+                    </IconButton>
+                    <IconButton
+                      aria-label={`Delete file`}
+                      onClick={() => {
+                        const delOK = window.confirm('Do you really want to delete?');
+                        if (delOK) {
+                          deleteFile(file.file_id);
+                          window.location.href="myfiles/";
+                        }
+                      }}
+                      className={classes.icon}
+                    >
+                      <DeleteIcon fontSize="large" />
+                    </IconButton>
+                    </>
+                    }
+                  </Grid>
+                  
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-      </Grid>
-      </Paper>
-      </div>
+          </Paper>
+        </div>
       </MuiThemeProvider>
     </>);
 };

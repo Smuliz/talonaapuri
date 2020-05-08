@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#ECB390",
   },
   gridList: {
     width: '100%',
@@ -46,9 +46,9 @@ const AdminTable = () => {
         <GridList
           cellHeight={180}
           className={classes.gridList}
-          cols={matches ? 3 : 2}>
-          <GridListTile key="Subheader" cols={3} style={{height: 'auto'}}>
-            <ListSubheader component="div">All Media</ListSubheader>
+          cols={1}>
+          <GridListTile key="Subheader" cols={1} style={{height: 'auto'}}>
+            <ListSubheader component="div">Kaikki Taloyhtiön ilmoitukset</ListSubheader>
           </GridListTile>
           {
             newPicArray.map((file) =>
