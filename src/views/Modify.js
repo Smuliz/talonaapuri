@@ -131,7 +131,7 @@ const Modify = ({history, match}) => {
               <Grid container item>
                 <TextValidator
                   fullWidth
-                  label="Title"
+                  label="Otsikko"
                   type="text"
                   name="title"
                   value={inputs.title}
@@ -150,7 +150,7 @@ const Modify = ({history, match}) => {
                   multiline
                   rows={4}
                   fullWidth
-                  label="Description"
+                  label="Kuvaus"
                   name="description"
                   value={inputs.description}
                   onChange={handleInputChange}
@@ -175,7 +175,9 @@ const Modify = ({history, match}) => {
           </ValidatorForm>
           
         </Grid>
-        {loading &&
+        
+      </Grid>
+      {loading &&
             <Grid item>
               <CircularProgress />
             </Grid>
@@ -185,7 +187,7 @@ const Modify = ({history, match}) => {
               <img
                 style={
                   {
-                    width: '100%',
+                    width: '70%',
                   }
                 }
                 src={mediaUrl + inputs.filename}
@@ -193,7 +195,6 @@ const Modify = ({history, match}) => {
               
             </Grid>
           }
-      </Grid>
       </MuiThemeProvider>
     </>
   );

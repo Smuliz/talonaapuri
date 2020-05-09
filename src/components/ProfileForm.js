@@ -4,7 +4,7 @@ import { updateProfile, checkUserAvailable, checkToken, uploadAvatar } from '../
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MediaContext } from '../contexts/MediaContext';
-import { Button, Grid, MuiThemeProvider } from '@material-ui/core';
+import { Button, Grid, MuiThemeProvider, makeStyles } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import {createMuiTheme} from '@material-ui/core/styles';
 
@@ -23,7 +23,7 @@ const theme = createMuiTheme({
 
     MuiGrid:{
       root:{
-        marginTop: '5rem',
+          margin: '1rem',
         display: 'flex',
         justifyContent: 'center',
       }
@@ -41,7 +41,24 @@ const theme = createMuiTheme({
   }
 });
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+      padding:0,
+    },
+    img: {
+      margin: 'auto',
+      display: 'block',
+      maxWidth: '80%',
+    },
+    tilaa: {
+        marginTop: "1rem",
+
+    }
+  }));
+
 const ProfileForm = ({ history }) => {
+    const classes = useStyles();
     // eslint-disable-next-line no-unused-vars
     const [user, setUser] = useContext(MediaContext);
     const [toggle, setToggle] = useState(false);
@@ -111,12 +128,13 @@ const ProfileForm = ({ history }) => {
                             noValidate
                         >
                             <Grid container>
-                                <Grid container item>
+                                <Grid container item className={classes.tilaa}>
                                     <TextValidator
                                         fullWidth
+                                        align="center"
                                         type="text"
                                         name="username"
-                                        label="Username"
+                                        label="Käyttäjänimi"
                                         onChange={handleInputChange}
                                         value={inputs.username}
                                         validators={[
@@ -125,55 +143,55 @@ const ProfileForm = ({ history }) => {
                                             'isAvailable',
                                         ]}
                                         errorMessages={[
-                                            'this field is required',
-                                            'minimum 3 charaters',
-                                            inputs.username + ' is not available',
+                                            'Tämä kenttä on vaadittu',
+                                            'vähintään 3 merkkiä',
+                                            inputs.username + ' ei vapaa käyttäjänimi',
                                         ]}
                                     />
                                 </Grid>
 
-                                <Grid container item>
+                                <Grid container item className={classes.tilaa}>
                                     <TextValidator
                                         fullWidth
+                                        align="center"
                                         type="email"
                                         name="email"
-                                        label="Email"
+                                        label="Sähköposti"
                                         onChange={handleInputChange}
                                         value={inputs.email}
                                         validators={['required', 'isEmail']}
                                         errorMessages={[
-                                            'this field is required',
-                                            'email is not valid']}
+                                            'Tämä kenttä on vaadittu',
+                                            'Ei sähköposti']}
                                     />
                                 </Grid>
 
-                                <Grid container item>
+                                <Grid container item className={classes.tilaa}>
                                     <TextValidator
                                         fullWidth
+                                        align="center"
                                         type="text"
                                         name="full_name"
-                                        label="Full name"
+                                        label="Kokonimi"
                                         onChange={handleInputChange}
                                         value={inputs.full_name}
-                                        validators={
-                                            ['matchRegexp:^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*)*$']
-                                        }
-                                        errorMessages={['text only']}
+                                        errorMessages={['Vain tekstiä']}
                                     />
                                 </Grid>
 
-                                <Grid container item>
+                                <Grid container item className={classes.tilaa}>
                                     <TextValidator
                                         fullWidth
+                                        align="center"
                                         type="file"
                                         name="profileImage"
-                                        errorMessages={['images only']}
+                                        errorMessages={['Vain kuvia']}
                                         accept="image/*"
                                         onChange={handleFileChange}
                                     />
                                 </Grid>
 
-                                <Grid container item>
+                                <Grid container item className={classes.tilaa}>
                                     <Button
                                         fullWidth
                                         color="primary"

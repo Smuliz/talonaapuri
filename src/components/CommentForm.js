@@ -26,7 +26,7 @@ const CommentForm = (id) => {
         window.location.reload(false);
     };
  
-    console.log('Komment FORM', id);
+    
     return (
         <>
         <ValidatorForm
@@ -44,9 +44,6 @@ const CommentForm = (id) => {
             name="comment"
             value={inputs.comment}
             onChange={handleInputChange}
-            validators={
-                ['matchRegexp:^[a-öA-Ö]+(([\',. -][a-öA-Ö ])?[a-öA-Ö]*)*$']
-            }
                 errorMessages={['text only']}
         >
         </TextValidator>

@@ -30,6 +30,7 @@ const theme = createMuiTheme({
           width: '60%',
           maxWidth: '15rem',
           marginBottom:'1rem',
+          marginLeft: '1rem',
         }
   
       }
@@ -55,7 +56,7 @@ const AdminIlmoitukset = ({history}) => {
             <Typography
                 component="p"
                 variant="p"
-                gutterBottom>Lorem impus knvnwinvqiwnopn nqwnjqen neqöjbjeb jqfjqbejbö bqöjbq bqnö jbjöqb be qöbjevbrkrenbinir.
+                gutterBottom>Voit luoda ilmoituksia kaikkien käyttäjien nähtäville kotisivulle.
             </Typography>
             <Grid item>
             <Button
@@ -66,6 +67,15 @@ const AdminIlmoitukset = ({history}) => {
             variant="contained"
             >
             Tee taloyhtiön ilmoitus
+            </Button>
+            <Button
+            align="center"
+            color="primary"
+            component={RouterLink}
+            to="/adminvika"
+            variant="contained"
+            >
+            Kaikki Vikailmoitukset
             </Button>
             </Grid>
             <AdminTable />

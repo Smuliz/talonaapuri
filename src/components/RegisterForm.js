@@ -63,6 +63,9 @@ const theme = createMuiTheme({
       lock:{
           marginBottom:'.3rem',
       },
+      margini:{
+          margin:'1rem',
+      }
   
     }));
 
@@ -140,6 +143,7 @@ const RegisterForm = ({ history }) => {
                                 type="text"
                                 name="username"
                                 label="Username*"
+                                className={classes.margini}
                                 onChange={handleInputChange}
                                 value={inputs.username}
                                 helperText={errorMessage.username}
@@ -159,6 +163,7 @@ const RegisterForm = ({ history }) => {
                         <Grid container item>
                             <TextValidator
                                 fullWidth
+                                className={classes.margini}
                                 type="password"
                                 name="password"
                                 label="Password*"
@@ -177,6 +182,7 @@ const RegisterForm = ({ history }) => {
                         <Grid container item>
                             <TextValidator
                                 fullWidth
+                                className={classes.margini}
                                 type="password"
                                 name="confirm"
                                 label="Confirm password*"
@@ -189,6 +195,7 @@ const RegisterForm = ({ history }) => {
                         <Grid container item>
                             <TextValidator
                                 fullWidth
+                                className={classes.margini}
                                 type="email"
                                 name="email"
                                 label="Email*"
@@ -201,6 +208,7 @@ const RegisterForm = ({ history }) => {
                         <Grid container item>
                             <TextValidator
                                 fullWidth
+                                className={classes.margini}
                                 type="text"
                                 name="full_name"
                                 label="Full name"
@@ -213,7 +221,13 @@ const RegisterForm = ({ history }) => {
                             />
                         </Grid>
                         <Grid container item>
-                            <Button fullWidth color="primary" type="submit" variant="contained">Register</Button>
+                            <Button 
+                            fullWidth 
+                            color="primary" 
+                            type="submit" 
+                            variant="contained"
+                            className={classes.margini}
+                            >Register</Button>
                         </Grid>
                     </Grid>
                 </ValidatorForm>

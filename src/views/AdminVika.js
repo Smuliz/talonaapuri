@@ -5,6 +5,7 @@ import {Link as RouterLink} from 'react-router-dom';
 import Nav from '../components/Nav';
 import {createMuiTheme} from '@material-ui/core/styles';
 import {makeStyles} from '@material-ui/core';
+import AdminVikaTable from '../components/AdminVikaTable';
 
 const theme = createMuiTheme({
   palette:{
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const MyFiles = () => {
+const AdminVika = () => {
     const classes = useStyles();
     return (
         <>
@@ -60,25 +61,11 @@ const MyFiles = () => {
                 variant="h2"
                 gutterBottom>Vikailmoitukset
             </Typography>
-            <Typography
-                component="p"
-                variant="p"
-                gutterBottom>Voit tehdä vikailmoituksen isännöitsijällesi ja muokata näitä ilmoituksia.
-            </Typography>
-            <Grid item>
-            <Button
-            variant="contained"
-            color="primary"
-            component={RouterLink}
-            to="/upload"
-            >
-                Tee vikailmoitus
-            </Button>
-            </Grid>
-            <MyTable />
+
+            <AdminVikaTable />
             </MuiThemeProvider>
         </>
     );
 };
 
-export default MyFiles;
+export default AdminVika;

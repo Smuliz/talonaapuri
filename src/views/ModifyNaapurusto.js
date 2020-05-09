@@ -6,15 +6,66 @@ import {
   Grid,
   CircularProgress,
   Typography,
+  MuiThemeProvider,
 } from '@material-ui/core';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import BackButton from '../components/BackButton';
 import useModifyForm from '../hooks/ModifyHooks';
 import Nav from '../components/Nav';
+import {createMuiTheme} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core';
+
 
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
+const theme = createMuiTheme({
+  palette:{
+    primary: {
+      main: '#DF7861'
+    },
+  },
+  overrides: {
+
+    MuiGrid:{
+      root:{
+        marginTop: '5rem',
+        display: 'flex',
+        justifyContent: 'center',
+      }
+  },
+
+    MuiButton: {
+      containedPrimary: {
+        marginTop: '1rem',
+        backgroundColor: "#DF7861",
+        width: '60%',
+        maxWidth: '12rem',
+        marginBottom:'1rem',
+      }
+
+    }
+  }
+});
+
+const useStyles = makeStyles((theme) => ({
+    regButton: {
+      marginTop:'1rem',
+    },
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      overflow: 'hidden',
+      backgroundColor: '#ECB390',
+    },
+    filu:{
+      marginTop:'2rem',
+      marginBottom:'2rem',
+    },
+  }));
+
 const ModifyNaapurusto = ({history, match}) => {
+  const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const file = useSingleMedia(match.params.id);
 
@@ -60,13 +111,14 @@ const ModifyNaapurusto = ({history, match}) => {
   return (
     <>
     <Nav/>
+    <MuiThemeProvider theme={theme}>
       <BackButton />
       <Grid container>
         <Grid item xs={12}>
           <Typography
             component="h1"
             variant="h2"
-            gutterBottom>Modify</Typography>
+            gutterBottom>Muokkaa</Typography>
         </Grid>
         <Grid item>
           <ValidatorForm
@@ -78,7 +130,7 @@ const ModifyNaapurusto = ({history, match}) => {
               <Grid container item>
                 <TextValidator
                   fullWidth
-                  label="Title"
+                  label="Otsikko"
                   type="text"
                   name="title"
                   value={inputs.title}
@@ -97,29 +149,34 @@ const ModifyNaapurusto = ({history, match}) => {
                   multiline
                   rows={4}
                   fullWidth
-                  label="Description"
+                  label="Kuvaus"
                   name="description"
                   value={inputs.description}
                   onChange={handleInputChange}
                   validators={
                     ['matchRegexp:^[a-öA-Ö]+(([\',. -][a-öA-Ö ])?[a-öA-Ö]*)*$']
                   }
-                  errorMessages={['text only']}
+                  errorMessages={['Vain tekstiä']}
                 />
               </Grid>
               <Grid container item>
                 <Button
+                style={{marginTop:'2rem',marginBottom:'2rem'}}
                   fullWidth
                   color="primary"
                   type="submit"
                   variant="contained"
                 >
-                  Save
+                  Tallenna
                 </Button>
               </Grid>
             </Grid>
           </ValidatorForm>
-          {loading &&
+          
+        </Grid>
+        
+      </Grid>
+      {loading &&
             <Grid item>
               <CircularProgress />
             </Grid>
@@ -129,7 +186,7 @@ const ModifyNaapurusto = ({history, match}) => {
               <img
                 style={
                   {
-                    width: '100%',
+                    width: '70%',
                   }
                 }
                 src={mediaUrl + inputs.filename}
@@ -137,8 +194,7 @@ const ModifyNaapurusto = ({history, match}) => {
               
             </Grid>
           }
-        </Grid>
-      </Grid>
+      </MuiThemeProvider>
     </>
   );
 };

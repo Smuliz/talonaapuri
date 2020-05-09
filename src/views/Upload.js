@@ -145,16 +145,17 @@ const Upload = ({history}) => {
               <Grid container item>
                 <TextValidator
                   fullWidth
-                  label="Title"
+                  label="Osoite"
                   type="text"
                   name="title"
                   value={inputs.title}
                   onChange={handleInputChange}
                   validators={[
                     'required',
+                    'matchRegexp:^[a-öA-Ö0-9]+(([\',. -][a-öA-Ö0-9 ])?[a-öA-Ö0-9]*)*$',
                   ]}
                   errorMessages={[
-                    'this field is required',
+                    'Kiellettyjä merkkejä otsikossa tai se on tyhjä',
                   ]}
                 />
               </Grid>
@@ -164,14 +165,14 @@ const Upload = ({history}) => {
                   id="standard-multiline-static"
                   multiline
                   rows={4}
-                  label="Description"
+                  label="Tarkka Kuvaus Ongelmasta"
                   name="description"
                   value={inputs.description}
                   onChange={handleInputChange}
                   validators={
-                    ['matchRegexp:^[a-öA-Ö]+(([\',. -][a-öA-Ö ])?[a-öA-Ö]*)*$']
+                    ['matchRegexp:^[a-öA-Ö0-9]+(([\',. -][a-öA-Ö0-9 ])?[a-öA-Ö0-9]*)*$']
                   }
-                  errorMessages={['text only']}
+                  errorMessages={['Kuvauksessa kiellettyjä merkkejä, tai lopetit välilyöntiin']}
                 />
               </Grid>
               <Grid container item>

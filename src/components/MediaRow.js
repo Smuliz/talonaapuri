@@ -82,6 +82,13 @@ const useStyles = makeStyles((theme) => ({
     overflow:'hidden',
     maxHeight:'3rem'
   },
+  ecli: {
+    maxWidth: '15rem',
+    maxHeight:'5rem',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 }));
 
 
@@ -158,7 +165,7 @@ const MediaRow = ({ file, myfiles }) => {
                     </Typography>
                   </Grid>
                   <Grid item xs >
-                    <Typography gutterBottom variant="subtitle1">
+                    <Typography gutterBottom variant="subtitle1" className={classes.ecli}>
                       {description}
                     </Typography>
                   </Grid>
@@ -166,7 +173,7 @@ const MediaRow = ({ file, myfiles }) => {
                     <IconButton
                       aria-label={`info about ${file.title}`}
                       component={RouterLink}
-                      to={'/single/' + file.file_id}
+                      to={'/singlevikailmoitus/' + file.file_id}
                       className={classes.icon}
                     >
                       <PageviewIcon fontSize="large" />

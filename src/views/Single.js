@@ -1,21 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSingleMedia } from '../hooks/ApiHooks';
-import { Typography, Paper, Button, makeStyles } from '@material-ui/core';
+import { Typography, Paper, Button, makeStyles, MuiThemeProvider } from '@material-ui/core';
 import BackButton from '../components/BackButton';
 import Media from '../components/Media';
 import Comment from '../components/Comments';
 import CommentForm from '../components/CommentForm';
 import Nav from '../components/Nav';
 import { TextValidator } from 'react-material-ui-form-validator';
+import {createMuiTheme} from '@material-ui/core/styles';
 
 
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
+const theme = createMuiTheme({
+  palette:{
+    primary: {
+      main: '#DF7861'
+    },
+  },
+  overrides: {
+
+    MuiGrid:{
+      root:{
+        marginTop: '5rem',
+        display: 'flex',
+        justifyContent: 'center',
+      }
+  },
+
+    MuiButton: {
+      containedPrimary: {
+        marginTop: '1rem',
+        backgroundColor: "#DF7861",
+        width: '60%',
+        maxWidth: '12rem',
+        marginBottom:'1rem',
+      }
+
+    }
+  }
+});
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    padding:0,
+    padding: 0,
   },
   img: {
     margin: 'auto',
@@ -23,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '80%',
   }
 }));
- 
+
 
 
 
@@ -46,40 +76,41 @@ const Single = ({ match }) => {
       {file !== null &&
         <>
           <Nav />
-          <BackButton />
-          <Typography
-            variant="h3"
-            align="center"
-            gutterBottom>{file.title}
-          </Typography>
+          <MuiThemeProvider theme={theme}>
+            <BackButton />
+            <Typography
+              variant="h3"
+              align="center"
+              gutterBottom>{file.title}
+            </Typography>
 
-          <Typography
-            variant="h5"
-            align="left"
-            gutterBottom
-            style={{width:'70%',margin: 'auto'}}
+            <Typography
+              variant="h5"
+              align="left"
+              gutterBottom
+              style={{ width: '70%', margin: 'auto' }}
             >
-            Ilmoituksen tiedot:
-              <Typography align="left"variant="h6" style={{margin: 'auto',marginBottom: '1rem'}}>
-              {description}
-                </Typography>
-            
-          </Typography>
+              Ilmoituksen tiedot:
+              <Typography align="left" variant="h6" style={{ margin: 'auto', marginBottom: '1rem' }}>
+                {description}
+              </Typography>
+
+            </Typography>
             {description &&
               <img src={thumb} className={classes.img} />
             }
-          {file.user.username !== 'tjnadmin' &&
-            <Typography
-              component="h5"
-              variant="h5"
-              align="center"
-              gutterBottom>
-              Tekijä: {file.user.username}
-            </Typography>
-          }
+            {file.user.username !== 'tjnadmin' &&
+              <Typography
+                component="h5"
+                variant="h5"
+                align="center"
+                gutterBottom>
+                Tekijä: {file.user.username}
+              </Typography>
+            }
 
 
-
+          </MuiThemeProvider>
         </>
       }
     </div>

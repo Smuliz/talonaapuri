@@ -97,7 +97,7 @@ const ModifyIlmoitus = ({history, match}) => {
         setInputs((inputs) => {
           return {
             title: file.title,
-            description: description.desc,
+            description: description,
             filename: file.filename,
           };
         });
@@ -129,7 +129,7 @@ const ModifyIlmoitus = ({history, match}) => {
               <Grid container item>
                 <TextValidator
                   fullWidth
-                  label="Title"
+                  label="Otsikko"
                   type="text"
                   name="title"
                   value={inputs.title}
@@ -148,14 +148,14 @@ const ModifyIlmoitus = ({history, match}) => {
                   multiline
                   rows={4}
                   fullWidth
-                  label="Description"
+                  label="Kuvaus"
                   name="description"
                   value={inputs.description}
                   onChange={handleInputChange}
                   validators={
                     ['matchRegexp:^[a-öA-Ö]+(([\',. -][a-öA-Ö ])?[a-öA-Ö]*)*$']
                   }
-                  errorMessages={['text only']}
+                  errorMessages={['Vain tekstiä']}
                 />
               </Grid>
               <Grid container item>

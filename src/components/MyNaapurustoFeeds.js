@@ -7,8 +7,39 @@ import {
   ListSubheader,
   makeStyles,
   useMediaQuery,
+  MuiThemeProvider,
 } from '@material-ui/core';
 import {MediaContext} from '../contexts/MediaContext';
+import {createMuiTheme} from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette:{
+    primary: {
+      main: '#DF7861'
+    },
+  },
+  overrides: {
+
+    MuiGrid:{
+      root:{
+        marginTop: '5rem',
+        display: 'flex',
+        justifyContent: 'center',
+      }
+  },
+
+    MuiButton: {
+      containedPrimary: {
+        marginTop: '1rem',
+        backgroundColor: "#DF7861",
+        width: '60%',
+        maxWidth: '12rem',
+        marginBottom:'1rem',
+      }
+
+    }
+  }
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: '#ECB390',
   },
   gridList: {
     width: '100%',
@@ -24,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
+  },
+  korkeus: {
+    marginBottom: '1rem',
   },
 }));
 
@@ -42,22 +76,22 @@ const MyNaapurustoFeeds = () => {
 
   return (
     <div className={classes.root}>
-    
+    <MuiThemeProvider theme={theme}>
         <GridList
-          cellHeight={180}
+          cellHeight={220}
           className={classes.gridList}
-          cols={matches ? 3 : 2}>
-          <GridListTile key="Subheader" cols={3} style={{height: 'auto'}}>
-            <ListSubheader component="div">All Media</ListSubheader>
+          cols={1}>
+          <GridListTile key="Subheader" cols={1} style={{height: 'auto'}}>
+            <ListSubheader component="div">Omat Feedit</ListSubheader>
           </GridListTile>
           {
             newPicArray.map((file) =>
-              <GridListTile key={file.file_id}>
+              <GridListTile key={file.file_id} className={classes.korkeus}>
                 <MediaRowNaapurusto file={file} myfiles={true} />
               </GridListTile>)
           }
         </GridList>
-      
+        </MuiThemeProvider>
     </div>
   );
 };

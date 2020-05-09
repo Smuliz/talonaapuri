@@ -7,12 +7,62 @@ import {
   Grid,
   CircularProgress,
   Typography,
+  makeStyles,
+  MuiThemeProvider,
 } from '@material-ui/core';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import BackButton from '../components/BackButton';
 import Nav from '../components/Nav';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#DF7861'
+        },
+    },
+    overrides: {
+
+        MuiGrid: {
+            root: {
+                marginTop: '5rem',
+                display: 'flex',
+                justifyContent: 'center',
+            }
+        },
+
+        MuiButton: {
+            containedPrimary: {
+                marginTop: '1rem',
+                backgroundColor: "#DF7861",
+                width: '60%',
+                maxWidth: '12rem',
+                marginBottom: '1rem',
+            }
+
+        }
+    }
+});
+
+const useStyles = makeStyles((theme) => ({
+    regButton: {
+        marginTop: '1rem',
+    },
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: '#ECB390',
+    },
+    filu: {
+        marginTop: '2rem',
+        marginBottom: '2rem',
+    },
+}));
 
 const UploadNewFeed = ({history}) => {
+  const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const doUpload = async () => {
     setLoading(true);
@@ -75,12 +125,13 @@ const UploadNewFeed = ({history}) => {
     <>
     <Nav/>
       <BackButton />
+      <MuiThemeProvider theme={theme}>
       <Grid container>
         <Grid item xs={12}>
           <Typography
             component="h1"
             variant="h2"
-            gutterBottom>Tee uusi feedi</Typography>
+            gutterBottom>Tee uusi päivitys</Typography>
         </Grid>
         <Grid item>
           <ValidatorForm
@@ -92,16 +143,17 @@ const UploadNewFeed = ({history}) => {
               <Grid container item>
                 <TextValidator
                   fullWidth
-                  label="Title"
+                  label="Otsikko"
                   type="text"
                   name="title"
                   value={inputs.title}
                   onChange={handleInputChange}
                   validators={[
                     'required',
+                    'matchRegexp:^[a-öA-Ö0-9]+(([\',. -][a-öA-Ö0-9 ])?[a-öA-Ö0-9]*)*$',
                   ]}
                   errorMessages={[
-                    'this field is required',
+                    'Kiellettyjä merkkejä otsikossa tai se on tyhjä',
                   ]}
                 />
               </Grid>
@@ -111,19 +163,20 @@ const UploadNewFeed = ({history}) => {
                   fullWidth
                   multiline
                   rows={4}
-                  label="Description"
+                  label="Kuvaus"
                   name="description"
                   value={inputs.description}
                   onChange={handleInputChange}
                   validators={
-                    ['matchRegexp:^[a-öA-Ö]+(([\',. -][a-öA-Ö ])?[a-öA-Ö]*)*$']
+                    ['matchRegexp:^[a-öA-Ö0-9]+(([\',. -][a-öA-Ö0-9 ])?[a-öA-Ö0-9]*)*$']
                   }
-                  errorMessages={['text only']}
+                  errorMessages={['Kuvauksessa kiellettyjä merkkejä, tai lopetit välilyöntiin']}
                 />
               </Grid>
               <Grid container item>
                 <TextValidator
-                  fullWidth
+                className={classes.filu}
+                
                   type="file"
                   name="file"
                   accept="image/*,video/*,audio/*"
@@ -137,12 +190,15 @@ const UploadNewFeed = ({history}) => {
                   type="submit"
                   variant="contained"
                 >
-                  Lähetä Feedi.
+                  Lähetä Päivitys
                 </Button>
               </Grid>
             </Grid>
           </ValidatorForm>
-          {loading &&
+          
+        </Grid>
+      </Grid>
+      {loading &&
           <Grid item>
             <CircularProgress/>
           </Grid>
@@ -160,8 +216,7 @@ const UploadNewFeed = ({history}) => {
           
           </Grid>
           }
-        </Grid>
-      </Grid>
+      </MuiThemeProvider>
     </>
   );
 };

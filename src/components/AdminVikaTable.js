@@ -1,5 +1,5 @@
-import React from 'react';
-import MediaRowNaapurusto from './MediaRowNaapurusto';
+import React, {useContext} from 'react';
+import MediaRow from './MediaRow';
 import {useAllMedia} from '../hooks/ApiHooks';
 import {
   GridList,
@@ -9,8 +9,10 @@ import {
   useMediaQuery,
   MuiThemeProvider,
 } from '@material-ui/core';
+import {MediaContext} from '../contexts/MediaContext';
+
+
 import {createMuiTheme} from '@material-ui/core/styles';
-//import {MediaContext} from '../contexts/MediaContext';
 
 const theme = createMuiTheme({
   palette:{
@@ -45,15 +47,17 @@ const theme = createMuiTheme({
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    flexWrap: 'nowrap',
+    justifyContent: 'space-between',
     overflow: 'hidden',
     backgroundColor: '#ECB390',
   },
   gridList: {
     width: '100%',
     height: '100%',
+    backgroundColor: '#ECB390',
   },
+
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
@@ -62,19 +66,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FeediTable = () => {
-  // [user] = useContext(MediaContext);
+const AdminVikaTable = () => {
+  const [user] = useContext(MediaContext);
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:697px)');
 
-  const picArray = useAllMedia('NaapurustoFeedi');
+  const picArray = useAllMedia('vikailmoitus');
   console.log(picArray);
-
-  /*let newPicArray = [];
-  if (picArray.length > 0 && user !== null) {
-    newPicArray = picArray.filter((pic) => pic.user_id === user.user_id);
+  let newPicArray = [];
+  if (picArray.length > 0 && user.user_id === 574) {
+    newPicArray = picArray;
   }
-  */
   
 
   return (
@@ -85,12 +87,12 @@ const FeediTable = () => {
           className={classes.gridList}
           cols={1}>
           <GridListTile key="Subheader" cols={1} style={{height: 'auto'}}>
-            <ListSubheader component="div">Kaikki Päivitykset</ListSubheader>
+            <ListSubheader component="div">Kaikki Vikailmoitukset</ListSubheader>
           </GridListTile>
           {
-            picArray.map((file) =>
+            newPicArray.map((file) =>
               <GridListTile key={file.file_id} className={classes.korkeus}>
-                <MediaRowNaapurusto file={file} myfiles={true} />
+                <MediaRow file={file} myfiles={true} />
               </GridListTile>)
           }
         </GridList>
@@ -99,4 +101,4 @@ const FeediTable = () => {
   );
 };
 
-export default FeediTable;
+export default AdminVikaTable;

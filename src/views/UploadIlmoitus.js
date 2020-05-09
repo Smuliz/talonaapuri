@@ -8,12 +8,62 @@ import {
     Grid,
     CircularProgress,
     Typography,
+    makeStyles,
+    MuiThemeProvider,
 } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import BackButton from '../components/BackButton';
 import Nav from '../components/Nav';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#DF7861'
+        },
+    },
+    overrides: {
+
+        MuiGrid: {
+            root: {
+                marginTop: '5rem',
+                display: 'flex',
+                justifyContent: 'center',
+            }
+        },
+
+        MuiButton: {
+            containedPrimary: {
+                marginTop: '1rem',
+                backgroundColor: "#DF7861",
+                width: '60%',
+                maxWidth: '12rem',
+                marginBottom: '1rem',
+            }
+
+        }
+    }
+});
+
+const useStyles = makeStyles((theme) => ({
+    regButton: {
+        marginTop: '1rem',
+    },
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: '#ECB390',
+    },
+    filu: {
+        marginTop: '2rem',
+        marginBottom: '2rem',
+    },
+}));
 
 const UploadIlmoitus = ({ history }) => {
+    const classes = useStyles();
     const [user] = useContext(MediaContext);
 
     const [loading, setLoading] = useState(false);
@@ -78,76 +128,83 @@ const UploadIlmoitus = ({ history }) => {
     // TOIMII SITTENKIN?? 
     return (
         <>
-            
-            <Nav />
-            <BackButton />
-            {user.username === 'tjnadmin' &&
 
-                <Grid container>
-                    <Grid item xs={12}>
-                        <Typography
-                            component="h1"
-                            variant="h2"
-                            gutterBottom>Tee taloyhtiön ilmoitus</Typography>
-                    </Grid>
-                    <Grid item>
-                        <ValidatorForm
-                            onSubmit={handleSubmit}
-                            instantValidate={false}
-                            noValidate
-                        >
-                            <Grid container>
-                                <Grid container item>
-                                    <TextValidator
-                                        fullWidth
-                                        label="Title"
-                                        type="text"
-                                        name="title"
-                                        value={inputs.title}
-                                        onChange={handleInputChange}
-                                        validators={[
-                                            'required',
-                                        ]}
-                                        errorMessages={[
-                                            'this field is required',
-                                        ]}
-                                    />
-                                </Grid>
-                                <Grid container item>
-                                    <TextValidator
-                                        id="standard-multiline-static"
-                                        fullWidth
-                                        multiline
-                                        rows={4}
-                                        label="Description"
-                                        name="description"
-                                        value={inputs.description}
-                                        onChange={handleInputChange}
-                                 
-                                        errorMessages={['text only']}
-                                    />
-                                </Grid>
-                                <Grid container item>
-                                    <TextValidator
-                                        fullWidth
-                                        type="file"
-                                        name="file"
-                                        accept="image/*,video/*,audio/*"
-                                        onChange={handleFileChange}
-                                    />
-                                </Grid>
-                                <Grid container item>
-                                    <Button
-                                        fullWidth
-                                        color="primary"
-                                        type="submit"
-                                        variant="contained"
-                                    >
-                                        Lähetä taloyhtiön ilmoitus.
+            <Nav />
+            <MuiThemeProvider theme={theme}>
+                <BackButton />
+                {user.username === 'tjnadmin' &&
+
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <Typography
+                                component="h1"
+                                variant="h2"
+                                gutterBottom>Tee taloyhtiön ilmoitus</Typography>
+                        </Grid>
+                        <Grid item>
+                            <ValidatorForm
+                                onSubmit={handleSubmit}
+                                instantValidate={false}
+                                noValidate
+                            >
+                                <Grid container>
+                                    <Grid container item>
+                                        <TextValidator
+                                            fullWidth
+                                            label="Otsikko"
+                                            type="text"
+                                            name="title"
+                                            value={inputs.title}
+                                            onChange={handleInputChange}
+                                            validators={[
+                                                'required',
+                                                'matchRegexp:^[a-öA-Ö0-9]+(([\',. -][a-öA-Ö0-9 ])?[a-öA-Ö0-9]*)*$',
+                                            ]}
+                                            errorMessages={[
+                                                'Kiellettyjä merkkejä otsikossa tai se on tyhjä',
+                                            ]}
+                                        />
+                                    </Grid>
+                                    <Grid container item>
+                                        <TextValidator
+                                            id="standard-multiline-static"
+                                            fullWidth
+                                            multiline
+                                            rows={4}
+                                            label="Kuvaus"
+                                            name="description"
+                                            value={inputs.description}
+                                            onChange={handleInputChange}
+                                            validators={[
+                                                'matchRegexp:^[a-öA-Ö0-9]+(([\',. -][a-öA-Ö0-9 ])?[a-öA-Ö0-9]*)*$',
+                                            ]}
+
+                                            errorMessages={['Kuvauksessa kiellettyjä merkkejä, tai lopetit välilyöntiin']}
+                                        />
+                                    </Grid>
+                                    <Grid container item>
+                                        <TextValidator
+                                            className={classes.filu}
+                                            type="file"
+                                            name="file"
+                                            accept="image/*,video/*,audio/*"
+                                            onChange={handleFileChange}
+                                        />
+                                    </Grid>
+                                    <Grid container item>
+                                        <Button
+                                            fullWidth
+                                            color="primary"
+                                            type="submit"
+                                            variant="contained"
+                                        >
+                                            Lähetä taloyhtiön ilmoitus
                                     </Button>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </ValidatorForm>
+                            </ValidatorForm>
+
+                        </Grid>
                         {loading &&
                             <Grid item>
                                 <CircularProgress />
@@ -167,11 +224,11 @@ const UploadIlmoitus = ({ history }) => {
                             </Grid>
                         }
                     </Grid>
-                </Grid>
-            }
+                }
+            </MuiThemeProvider>
         </>
     );
-}; 
+};
 
 UploadIlmoitus.propTypes = {
     history: PropTypes.object,

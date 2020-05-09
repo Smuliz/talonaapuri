@@ -1,15 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useSingleMedia} from '../hooks/ApiHooks';
-import {Typography, Paper, Button, makeStyles} from '@material-ui/core';
+import {Typography, Paper, Button, makeStyles, MuiThemeProvider,} from '@material-ui/core';
 import BackButton from '../components/BackButton';
 import Media from '../components/Media';
 import Comment from '../components/Comments';
 import CommentForm from '../components/CommentForm';
 import Nav from '../components/Nav';
 import { TextValidator} from 'react-material-ui-form-validator';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#DF7861'
+    },
+  },
+  overrides: {
+
+    MuiGrid: {
+      root: {
+        marginTop: '5rem',
+        display: 'flex',
+        justifyContent: 'center',
+      }
+    },
+
+    MuiButton: {
+      containedPrimary: {
+        marginTop: '1rem',
+        backgroundColor: "#DF7861",
+        width: '60%',
+        maxWidth: '12rem',
+        marginBottom: '1rem',
+      }
+
+    }
+  }
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,28 +73,29 @@ const SingleNaapurusto = ({ match }) => {
       {file !== null &&
         <>
         <Nav/>
+        <MuiThemeProvider theme={theme}>
           <BackButton />
           <Typography
             component="h1"
             variant="h2"
             gutterBottom>{file.title}</Typography>
+            
+          {description &&
+              <img src={thumb} className={classes.img} />
+            }
+            <Typography
+            variant="h6"
+            gutterBottom>
+            {description}
+          </Typography>
             {file.user.username !== 'tjnadmin' &&
           <Typography
             component="h5"
             variant="h5"
             gutterBottom>
-            {file.user.username}
+            Tekijä: {file.user.username}
           </Typography>
           }
-          <Typography
-            component="p"
-            variant="caption"
-            gutterBottom>
-            {description}
-          </Typography>
-          {description &&
-              <img src={thumb} className={classes.img} />
-            }
 
           <>
           <Comment id={file.file_id} />
@@ -72,7 +103,7 @@ const SingleNaapurusto = ({ match }) => {
           </>
    
           
-    
+          </MuiThemeProvider>
         </>
       }
     </>

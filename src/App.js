@@ -19,6 +19,8 @@ import UploadIlmoitus from './views/UploadIlmoitus';
 import SingleNaapurusto from './views/SingleNaapurusto';
 import { MediaProvider } from './contexts/MediaContext';
 import { Container } from '@material-ui/core';
+import SingleVikailmoitus from './views/SingleVikailmoitus';
+import AdminVika from './views/AdminVika';
 
 
 
@@ -50,6 +52,8 @@ const App = () => {
             <Route path="/naapurustofeed" component={NaapurustoFeed}/>
             <Route path="/upload" component={Upload} />
             <Route path="/uploadnewfeed" component={UploadNewFeed}/>
+            <Route path="/singlevikailmoitus/:id" component={SingleVikailmoitus}/>
+            <Route path="/adminvika" component={AdminVika}/>
           </Switch>
           </main>
         </Container>

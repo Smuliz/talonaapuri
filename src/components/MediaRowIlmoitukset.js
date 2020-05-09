@@ -79,7 +79,14 @@ const useStyles = makeStyles((theme) => ({
   desc: {
     maxWidth: '15rem',
     overflow:'hidden',
-    maxHeight:'3rem'
+    maxHeight:'3rem',
+  },
+  ecli: {
+    maxWidth: '15rem',
+    maxHeight:'5rem',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 }));
 
@@ -114,7 +121,7 @@ const description = file.description;
                     </Typography>
                   </Grid>
                   <Grid item xs >
-                    <Typography gutterBottom variant="subtitle1" className={classes.desc}>
+                    <Typography gutterBottom variant="subtitle1" className={classes.ecli}>
                       {description}
                     </Typography>
                   </Grid>
