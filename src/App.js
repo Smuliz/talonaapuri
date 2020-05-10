@@ -31,7 +31,7 @@ import AdminVika from './views/AdminVika';
 const App = () => {
   return (
     // eslint-disable-next-line no-undef
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <MediaProvider>
         <Container maxWidth="md">
           <main>
