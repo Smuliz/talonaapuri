@@ -64,7 +64,7 @@ const theme = createMuiTheme({
           marginBottom:'.3rem',
       },
       margini:{
-          margin:'1rem',
+          marginTop:'1rem',
       }
   
     }));

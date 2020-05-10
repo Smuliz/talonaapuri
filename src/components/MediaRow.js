@@ -160,7 +160,7 @@ const MediaRow = ({ file, myfiles }) => {
               <Grid item xs={12} sm container>
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs >
-                    <Typography gutterBottom variant="subtitle1">
+                    <Typography gutterBottom variant="subtitle1" className={classes.ecli}>
                       {file.title}
                     </Typography>
                   </Grid>
