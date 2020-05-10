@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   desc: {
     maxWidth: '15rem',
     overflow:'hidden',
-    maxHeight:'3rem'
+    maxHeight:'5rem'
   },
   ecli: {
     maxWidth: '15rem',
@@ -119,7 +119,7 @@ const description = file.description;
               <Grid item xs sm container>
                 <Grid item  container direction="column" spacing={2} xs>
                   <Grid item xs >
-                    <Typography gutterBottom variant="subtitle1" className={classes.desc}>
+                    <Typography gutterBottom variant="h6" className={classes.desc}>
                       {file.title}
                     </Typography>
                   </Grid>

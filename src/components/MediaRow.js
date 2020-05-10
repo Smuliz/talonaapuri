@@ -194,7 +194,6 @@ const MediaRow = ({ file, myfiles }) => {
                         const delOK = window.confirm('Do you really want to delete?');
                         if (delOK) {
                           deleteFile(file.file_id);
-                          window.location.href="myfiles/";
                         }
                       }}
                       className={classes.icon}

@@ -84,7 +84,7 @@ const SingleNaapurusto = ({ match }) => {
               <img src={thumb} className={classes.img} />
             }
             <Typography
-            variant="h6"
+            variant="subtitle1"
             gutterBottom>
             {description}
           </Typography>

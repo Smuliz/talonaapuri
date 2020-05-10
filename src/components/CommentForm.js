@@ -40,7 +40,7 @@ const CommentForm = (id) => {
             multiline
             rows={4}
             fullWidth
-            label="Comment"
+            label="Kommentti"
             name="comment"
             value={inputs.comment}
             onChange={handleInputChange}
